@@ -1,0 +1,30 @@
+keyboard package
+================
+
+Submodules
+----------
+
+keyboard.bamini module
+----------------------
+
+.. automodule:: keyboard.bamini
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+keyboard.layout module
+----------------------
+
+.. automodule:: keyboard.layout
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: keyboard
+    :members:
+    :undoc-members:
+    :show-inheritance:

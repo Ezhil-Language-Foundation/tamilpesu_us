@@ -1,0 +1,208 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tamil.utils.TextSummaryExtractor &#8212; open-tamil  documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for tamil.utils.TextSummaryExtractor</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">tamil</span>
+
+<span class="c1"># This file was originally part of  &#39;TamilNLP&#39; repackaged for Open-Tamil.</span>
+<span class="c1"># [தமிழ் உரை சுருக்கம் செய்யும் நிரல்](https://github.com/AshokR/TamilNLP/wiki/Text-Summary-Extractor)</span>
+<span class="c1"># Copyright © 2016 இரா. அசோகன்</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># This is a naive text summarization algorithm created by Shlomi Babluki</span>
+<span class="c1"># Copyright (C) 2013 Shlomi Babluki</span>
+<span class="c1"># </span>
+<span class="c1"># http://thetokenizer.com/2013/04/28/build-your-own-summary-tool/</span>
+<span class="c1"># https://gist.github.com/shlomibabluki/5473521</span>
+<span class="c1"># </span>
+<span class="c1"># Copyright (C) 2016 Muthu Annamalai</span>
+
+<div class="viewcode-block" id="SummaryTool"><a class="viewcode-back" href="../../../tamil.utils.html#tamil.utils.TextSummaryExtractor.SummaryTool">[docs]</a><span class="k">class</span> <span class="nc">SummaryTool</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="c1"># Naive method for splitting a text into sentences</span>
+<div class="viewcode-block" id="SummaryTool.split_content_to_sentences"><a class="viewcode-back" href="../../../tamil.utils.html#tamil.utils.TextSummaryExtractor.SummaryTool.split_content_to_sentences">[docs]</a>    <span class="k">def</span> <span class="nf">split_content_to_sentences</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;. &quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;. &quot;</span><span class="p">)</span></div>
+
+    <span class="c1"># Naive method for splitting a text into paragraphs</span>
+<div class="viewcode-block" id="SummaryTool.split_content_to_paragraphs"><a class="viewcode-back" href="../../../tamil.utils.html#tamil.utils.TextSummaryExtractor.SummaryTool.split_content_to_paragraphs">[docs]</a>    <span class="k">def</span> <span class="nf">split_content_to_paragraphs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+    <span class="c1"># Caculate the intersection between 2 sentences</span>
+<div class="viewcode-block" id="SummaryTool.sentences_intersection"><a class="viewcode-back" href="../../../tamil.utils.html#tamil.utils.TextSummaryExtractor.SummaryTool.sentences_intersection">[docs]</a>    <span class="k">def</span> <span class="nf">sentences_intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sent1</span><span class="p">,</span> <span class="n">sent2</span><span class="p">):</span>
+        
+        <span class="c1"># split the sentence into words/tokens</span>
+        <span class="c1"># s1 = set(sent1.split(&quot; &quot;))</span>
+        <span class="c1"># s2 = set(sent2.split(&quot; &quot;))</span>
+        <span class="n">s1</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">tamil</span><span class="o">.</span><span class="n">utf8</span><span class="o">.</span><span class="n">get_letters</span><span class="p">(</span><span class="n">sent1</span><span class="p">))</span>
+        <span class="n">s2</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">tamil</span><span class="o">.</span><span class="n">utf8</span><span class="o">.</span><span class="n">get_letters</span><span class="p">(</span><span class="n">sent2</span><span class="p">))</span>
+        
+        <span class="c1"># If there is not intersection, just return 0</span>
+        <span class="c1"># if (len(s1) + len(s2)) == 0:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">s2</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="c1"># We normalize the result by the average number of words</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">s2</span><span class="p">))</span> <span class="o">/</span> <span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">s2</span><span class="p">))</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span></div>
+
+    <span class="c1"># Format a sentence - remove all non-alphbetic chars from the sentence</span>
+    <span class="c1"># We&#39;ll use the formatted sentence as a key in our sentences dictionary</span>
+<div class="viewcode-block" id="SummaryTool.format_sentence"><a class="viewcode-back" href="../../../tamil.utils.html#tamil.utils.TextSummaryExtractor.SummaryTool.format_sentence">[docs]</a>    <span class="k">def</span> <span class="nf">format_sentence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sentence</span><span class="p">):</span>
+        <span class="c1"># sentence = re.sub(r&#39;\W+&#39;, &#39;&#39;, sentence)       # [\u0B80-\u0BFF]</span>
+        <span class="n">sentence</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sentence</span><span class="p">)</span>
+        <span class="n">sentence</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">sentence</span><span class="p">)</span>
+        <span class="c1"># print sentence</span>
+        <span class="k">return</span> <span class="n">sentence</span></div>
+
+    <span class="c1"># Convert the content into a dictionary &lt;K, V&gt;</span>
+    <span class="c1"># k = The formatted sentence</span>
+    <span class="c1"># V = The rank of the sentence</span>
+<div class="viewcode-block" id="SummaryTool.get_sentences_ranks"><a class="viewcode-back" href="../../../tamil.utils.html#tamil.utils.TextSummaryExtractor.SummaryTool.get_sentences_ranks">[docs]</a>    <span class="k">def</span> <span class="nf">get_sentences_ranks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+
+        <span class="c1"># Split the content into sentences</span>
+        <span class="n">sentences</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_content_to_sentences</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+        <span class="c1"># Calculate the intersection of every two sentences</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                <span class="c1"># Metric for intersection is symmetric so we calculate 1/2 only</span>
+                <span class="c1"># For additional metrics see: ngram.Distance module in open-tamil</span>
+                <span class="c1"># Ref https://github.com/Ezhil-Language-Foundation/open-tamil/blob/master/ngram/Distance.py</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">j</span> <span class="p">:</span>
+                    <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+                    <span class="k">continue</span>
+                <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sentences_intersection</span><span class="p">(</span><span class="n">sentences</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sentences</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+
+        <span class="c1"># Build the sentences dictionary</span>
+        <span class="c1"># The score of a sentences is the sum of all its intersection</span>
+        <span class="n">sentences_dic</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">score</span> <span class="o">+=</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">kw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_sentence</span><span class="p">(</span><span class="n">sentences</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kw</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sentences_dic</span><span class="p">[</span><span class="n">kw</span><span class="p">]</span> <span class="o">=</span> <span class="n">score</span>
+        
+        <span class="k">return</span> <span class="n">sentences_dic</span></div>
+
+    <span class="c1"># Return the best sentence in a paragraph</span>
+<div class="viewcode-block" id="SummaryTool.get_best_sentence"><a class="viewcode-back" href="../../../tamil.utils.html#tamil.utils.TextSummaryExtractor.SummaryTool.get_best_sentence">[docs]</a>    <span class="k">def</span> <span class="nf">get_best_sentence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paragraph</span><span class="p">,</span> <span class="n">sentences_dic</span><span class="p">):</span>
+
+        <span class="c1"># Split the paragraph into sentences</span>
+        <span class="n">sentences</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_content_to_sentences</span><span class="p">(</span><span class="n">paragraph</span><span class="p">)</span>
+
+        <span class="c1"># Ignore short paragraphs</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="c1"># Get the best sentence according to the sentences dictionary</span>
+        <span class="n">best_sentence</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">max_value</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+            <span class="n">strip_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_sentence</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">strip_s</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sentences_dic</span><span class="p">[</span><span class="n">strip_s</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_value</span><span class="p">:</span>
+                    <span class="n">max_value</span> <span class="o">=</span> <span class="n">sentences_dic</span><span class="p">[</span><span class="n">strip_s</span><span class="p">]</span>
+                    <span class="n">best_sentence</span> <span class="o">=</span> <span class="n">s</span>
+
+        <span class="k">return</span> <span class="n">best_sentence</span></div>
+
+    <span class="c1"># Build the summary</span>
+<div class="viewcode-block" id="SummaryTool.get_summary"><a class="viewcode-back" href="../../../tamil.utils.html#tamil.utils.TextSummaryExtractor.SummaryTool.get_summary">[docs]</a>    <span class="k">def</span> <span class="nf">get_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">sentences_dic</span><span class="p">):</span>
+
+        <span class="c1"># Split the content into paragraphs</span>
+        <span class="n">paragraphs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_content_to_paragraphs</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+        <span class="c1"># Add the title</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Add the best sentence from each paragraph</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paragraphs</span><span class="p">:</span>
+            <span class="n">sentence</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_best_sentence</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">sentences_dic</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">sentence</span><span class="p">:</span>
+                <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

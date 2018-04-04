@@ -1,0 +1,257 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>solthiruthi.dictionary &#8212; open-tamil  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for solthiruthi.dictionary</h1><div class="highlight"><pre>
+<span></span><span class="c1">## -*- coding: utf-8 -*-</span>
+<span class="c1">## (C) 2015 Muthiah Annamalai,</span>
+<span class="c1">## </span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">codecs</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">resources</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">datastore</span>
+
+<span class="n">PYTHON3</span> <span class="o">=</span> <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;3&#39;</span><span class="p">)</span>
+    
+<span class="c1"># specify dictionary interface without specifying storage</span>
+<div class="viewcode-block" id="Dictionary"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Dictionary">[docs]</a><span class="k">class</span> <span class="nc">Dictionary</span><span class="p">:</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span>
+        
+<div class="viewcode-block" id="Dictionary.add"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Dictionary.add">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">word</span><span class="p">):</span>
+        <span class="k">return</span></div>
+    
+<div class="viewcode-block" id="Dictionary.getWordsEndingWith"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Dictionary.getWordsEndingWith">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">getWordsEndingWith</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">sfx</span><span class="p">):</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="Dictionary.hasWordsStartingWith"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Dictionary.hasWordsStartingWith">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">hasWordsStartingWith</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pfx</span><span class="p">):</span>
+        <span class="k">return</span></div>
+    
+<div class="viewcode-block" id="Dictionary.getWordsStartingWith"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Dictionary.getWordsStartingWith">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">getWordsStartingWith</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pfx</span><span class="p">):</span>
+        <span class="k">return</span></div>
+    
+<div class="viewcode-block" id="Dictionary.isWord"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Dictionary.isWord">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">isWord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">word</span><span class="p">):</span>
+        <span class="k">return</span></div>
+    
+<div class="viewcode-block" id="Dictionary.getAllWords"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Dictionary.getAllWords">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">getAllWords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span></div>
+    
+<div class="viewcode-block" id="Dictionary.getDictionaryPath"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Dictionary.getDictionaryPath">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">getDictionaryPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span></div>
+    
+<div class="viewcode-block" id="Dictionary.getSize"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Dictionary.getSize">[docs]</a>    <span class="k">def</span> <span class="nf">getSize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAllWordsIterable</span><span class="p">():</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">count</span></div>
+    
+<div class="viewcode-block" id="Dictionary.getAllWordsIterable"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Dictionary.getAllWordsIterable">[docs]</a>    <span class="k">def</span> <span class="nf">getAllWordsIterable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAllWords</span><span class="p">():</span>
+            <span class="k">yield</span> <span class="n">word</span>
+        <span class="k">return</span></div>
+    
+<div class="viewcode-block" id="Dictionary.loadWordFile"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Dictionary.loadWordFile">[docs]</a>    <span class="k">def</span> <span class="nf">loadWordFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pre_processor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getDictionaryPath</span><span class="p">()</span>
+        <span class="c1"># words will be loaded from the file into the Trie structure</span>
+        <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="c1"># 2-3 compatible</span>
+            <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">fp</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">pre_processor</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">pre_processor</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="k">return</span></div></div>
+
+<div class="viewcode-block" id="Agarathi"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Agarathi">[docs]</a><span class="k">class</span> <span class="nc">Agarathi</span><span class="p">(</span><span class="n">Dictionary</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dictionary_path</span><span class="p">,</span><span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dictionary_path</span> <span class="o">=</span> <span class="n">dictionary_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Finalized</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reverse</span> <span class="o">=</span> <span class="n">reverse</span>
+        <span class="k">if</span> <span class="n">reverse</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="o">=</span> <span class="n">datastore</span><span class="o">.</span><span class="n">RTrie</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="o">=</span> <span class="n">datastore</span><span class="o">.</span><span class="n">DTrie</span><span class="p">()</span>
+        <span class="k">return</span>
+    
+    <span class="c1"># delegate to store</span>
+<div class="viewcode-block" id="Agarathi.getWordsEndingWith"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Agarathi.getWordsEndingWith">[docs]</a>    <span class="k">def</span> <span class="nf">getWordsEndingWith</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">sfx</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">,</span><span class="s1">&#39;getWordsEndingWith&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;getWordsEndingWith is not an accessible method&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">getWordsEndingWith</span><span class="p">(</span><span class="n">sfx</span><span class="p">)</span></div>
+
+    <span class="c1"># delegate to store</span>
+<div class="viewcode-block" id="Agarathi.getWordsStartingWith"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Agarathi.getWordsStartingWith">[docs]</a>    <span class="k">def</span> <span class="nf">getWordsStartingWith</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pfx</span><span class="p">,</span><span class="n">limit</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">,</span><span class="s1">&#39;getAllWordsPrefix&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;getWordsStartingWith is not an accessible method&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">getAllWordsPrefix</span><span class="p">(</span><span class="n">pfx</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Agarathi.hasWordsStartingWith"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Agarathi.hasWordsStartingWith">[docs]</a>    <span class="k">def</span> <span class="nf">hasWordsStartingWith</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pfx</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">,</span><span class="s1">&#39;hasWordPrefix&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;hasWordsStartingWith is not an accessible method&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">hasWordPrefix</span><span class="p">(</span><span class="n">pfx</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Agarathi.add"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Agarathi.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">word</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Finalized</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;dictionary is finalized. cannot add more&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+        <span class="k">return</span></div>
+    
+<div class="viewcode-block" id="Agarathi.isWord"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Agarathi.isWord">[docs]</a>    <span class="k">def</span> <span class="nf">isWord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">word</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">isWord</span><span class="p">(</span><span class="n">word</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Agarathi.finalize"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Agarathi.finalize">[docs]</a>    <span class="k">def</span> <span class="nf">finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Finalized</span> <span class="o">=</span> <span class="kc">True</span></div>
+    
+<div class="viewcode-block" id="Agarathi.getDictionaryPath"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Agarathi.getDictionaryPath">[docs]</a>    <span class="k">def</span> <span class="nf">getDictionaryPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dictionary_path</span></div>
+    
+<div class="viewcode-block" id="Agarathi.getAllWords"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Agarathi.getAllWords">[docs]</a>    <span class="k">def</span> <span class="nf">getAllWords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">getAllWords</span><span class="p">()</span></div>
+    
+<div class="viewcode-block" id="Agarathi.getAllWordsIterable"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Agarathi.getAllWordsIterable">[docs]</a>    <span class="k">def</span> <span class="nf">getAllWordsIterable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">getAllWordsIterable</span><span class="p">():</span>
+            <span class="k">yield</span> <span class="n">word</span>
+        <span class="k">return</span></div></div>
+
+<span class="k">def</span> <span class="nf">_reverse_dict</span><span class="p">(</span><span class="n">DictT</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">function_reverse_dict_type</span><span class="p">():</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">DictT</span><span class="p">()</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">store</span> <span class="o">=</span> <span class="n">datastore</span><span class="o">.</span><span class="n">RTrie</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">obj</span>
+    <span class="k">return</span> <span class="n">function_reverse_dict_type</span>
+
+<div class="viewcode-block" id="EmptyAgarathi"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.EmptyAgarathi">[docs]</a><span class="k">class</span> <span class="nc">EmptyAgarathi</span><span class="p">(</span><span class="n">Agarathi</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Agarathi</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dictionary_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="TamilVU"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.TamilVU">[docs]</a><span class="k">class</span> <span class="nc">TamilVU</span><span class="p">(</span><span class="n">Agarathi</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Agarathi</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">resources</span><span class="o">.</span><span class="n">DICTIONARY_DATA_FILES</span><span class="p">[</span><span class="s1">&#39;tamilvu&#39;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="EnglishLinux"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.EnglishLinux">[docs]</a><span class="k">class</span> <span class="nc">EnglishLinux</span><span class="p">(</span><span class="n">Agarathi</span><span class="p">):</span>
+    <span class="c1"># use lower case</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Agarathi</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">resources</span><span class="o">.</span><span class="n">DICTIONARY_DATA_FILES</span><span class="p">[</span><span class="s1">&#39;english&#39;</span><span class="p">])</span>
+    
+<div class="viewcode-block" id="EnglishLinux.isWord"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.EnglishLinux.isWord">[docs]</a>    <span class="k">def</span> <span class="nf">isWord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">word</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Agarathi</span><span class="o">.</span><span class="n">isWord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span></div>
+    
+<div class="viewcode-block" id="EnglishLinux.add"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.EnglishLinux.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">word</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Agarathi</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span></div></div>
+    
+<div class="viewcode-block" id="reverse_TamilVU"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.reverse_TamilVU">[docs]</a><span class="k">def</span> <span class="nf">reverse_TamilVU</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_reverse_dict</span><span class="p">(</span><span class="n">TamilVU</span><span class="p">)()</span></div>
+
+<div class="viewcode-block" id="Madurai"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Madurai">[docs]</a><span class="k">class</span> <span class="nc">Madurai</span><span class="p">(</span><span class="n">Agarathi</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Agarathi</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">resources</span><span class="o">.</span><span class="n">DICTIONARY_DATA_FILES</span><span class="p">[</span><span class="s1">&#39;projmad&#39;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="reverse_Madurai"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.reverse_Madurai">[docs]</a><span class="k">def</span> <span class="nf">reverse_Madurai</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_reverse_dict</span><span class="p">(</span><span class="n">Madurai</span><span class="p">)()</span></div>
+
+<div class="viewcode-block" id="Wikipedia"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.Wikipedia">[docs]</a><span class="k">class</span> <span class="nc">Wikipedia</span><span class="p">(</span><span class="n">Agarathi</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Agarathi</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">resources</span><span class="o">.</span><span class="n">DICTIONARY_DATA_FILES</span><span class="p">[</span><span class="s1">&#39;wikipedia&#39;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="reverse_Wikipedia"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.reverse_Wikipedia">[docs]</a><span class="k">def</span> <span class="nf">reverse_Wikipedia</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_reverse_dict</span><span class="p">(</span><span class="n">Wikipedia</span><span class="p">)()</span></div>
+
+<span class="c1"># Methods for loading TamilVU, Wikipedia and Project Madurai cleaned up data</span>
+<div class="viewcode-block" id="DictionaryBuilder"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.DictionaryBuilder">[docs]</a><span class="k">class</span> <span class="nc">DictionaryBuilder</span><span class="p">:</span>
+<div class="viewcode-block" id="DictionaryBuilder.create"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.DictionaryBuilder.create">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">DType</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">DType</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;input @DType should be a class reference, or a factory function&quot;</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">DType</span><span class="p">()</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">loadWordFile</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">obj</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">getSize</span><span class="p">()]</span></div>
+    
+<div class="viewcode-block" id="DictionaryBuilder.createUsingWordList"><a class="viewcode-back" href="../../solthiruthi.html#solthiruthi.dictionary.DictionaryBuilder.createUsingWordList">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">createUsingWordList</span><span class="p">(</span><span class="n">wlist</span><span class="p">):</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">EmptyAgarathi</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">wlist</span><span class="p">:</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">getSize</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

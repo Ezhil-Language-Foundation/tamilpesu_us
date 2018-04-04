@@ -1,0 +1,739 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>transliterate.jaffna &#8212; open-tamil  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for transliterate.jaffna</h1><div class="highlight"><pre>
+<span></span><span class="c1">## -*- coding: utf-8 -*-</span>
+<span class="c1"># (C) 2013 Muthiah Annamalai</span>
+<span class="c1"># </span>
+<span class="c1"># Implementation of Jaffna library transliteration tables</span>
+<span class="c1"># first used in Gaim En-&gt;Ta Plugin (2006+) by Varun Soundarajan, &lt;s.varun@gmail.com&gt;</span>
+<span class="c1"># and later used in TamilKaruvi (2007) by your&#39;s truly.</span>
+<span class="c1">#    </span>
+
+<div class="viewcode-block" id="Transliteration"><a class="viewcode-back" href="../../transliterate.html#transliterate.jaffna.Transliteration">[docs]</a><span class="k">class</span> <span class="nc">Transliteration</span><span class="p">:</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="c1"># mix of consonants and compound - uyirmei - letters</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;njau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;njai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;njee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;njoo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;njaa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;njuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;njii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nja&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nji&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;njI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;njA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nje&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;njE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;njo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;njO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nju&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;njU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nj&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஞ்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ngau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ngai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ngee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ngoo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ngaa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nguu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ngii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nga&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ங&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ngi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ngI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ngA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nge&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ngE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ngo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ngO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ngu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ngU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஙூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ng&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ங்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;shau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;shai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;shee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;shoo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;shaa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;shuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;shii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;sha&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;shi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;shI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;shA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;she&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;shE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;sho&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;shO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;shu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;shU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;sh&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஷ்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; nau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; nai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; nee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; noo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; naa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; nuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; nii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; na&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; ந&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; ni&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; nI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; nA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; ne&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; nE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; no&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; nO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; nu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; nU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; நூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; nth&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; ந்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-nau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-nai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-nee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-noo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-naa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-nuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-nii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-na&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-ni&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-nI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-nA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-ne&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-nE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-no&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-nO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-nu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-nU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-au&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-ai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-ee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-oo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-aa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-uu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-ii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-a&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-i&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-I&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-A&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-e&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-E&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-o&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-O&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-u&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-U&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;wau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;wai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;wee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;woo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;waa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;wuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;wii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;wa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;wi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;wI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;wA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;we&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;wE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;wo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;wO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;wu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;wU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;நூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot; n&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot; ந்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n-&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-n&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;w&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthoo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthaa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ntha&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்த&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthe&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ntho&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்து&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nthU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்தூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nth&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ந்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhoo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhaa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dha&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;த&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhe&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dho&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;து&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dhU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dh&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;த்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;chau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;chai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;chee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;choo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;chaa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;chuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;chii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;cha&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ச&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;chi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;chI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;chA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;che&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;செ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;chE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;cho&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;chO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;chu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;chU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ch&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ச்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhoo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhaa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zha&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhe&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zho&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zhU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zh&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழ்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zoo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zaa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;za&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ze&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;zU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;z&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ழ்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;jau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;jai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;jee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;joo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;jaa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;juu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;jii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ja&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ji&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;jI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;jA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;je&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;jE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;jo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;jO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ju&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;jU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;j&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஜ்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;thau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;thai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;thee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;thoo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;thaa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;thuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;thii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;tha&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;த&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;thi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;thI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;thA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;the&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;thE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;tho&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;thO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;thu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;து&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;thU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;தூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;th&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;த்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-hau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-hai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-hee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-hoo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-haa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-huu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-hii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-ha&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-hi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-hI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-hA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-he&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-hE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-ho&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-hO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-hu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-hU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-h&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஹ்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;hau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;hai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;hee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;hoo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;haa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;huu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;hii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ha&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;க&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;hi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;hI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;hA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;he&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;hE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ho&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;hO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;hu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;hU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;h&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;க்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;kau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;kai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;kee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;koo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;kaa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;kuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;kii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ka&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;க&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ki&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;kI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;kA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ke&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;kE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ko&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;kO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ku&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;kU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;k&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;க்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-sau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-sai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-see&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-soo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-saa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-suu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-sii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-sa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-si&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-sI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-sA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-se&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-sE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-so&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-sO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-su&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-sU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-s&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸ்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Sau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Sai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;See&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Soo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Saa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Suu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Sii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Sa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Si&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;SI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;SA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Se&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;SE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;So&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;SO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Su&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;SU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஸ்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;rau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;rai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ree&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;roo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;raa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ruu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;rii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ra&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ர&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ri&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;rI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;rA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;re&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;rE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ro&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;rO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ru&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;rU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ரூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ர்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Rau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Rai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Ree&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Roo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Raa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Ruu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Rii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Ra&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ற&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Ri&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;RI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;RA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Re&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;RE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Ro&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;RO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Ru&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;று&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;RU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;றூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;R&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ற்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;tau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;tai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;tee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;too&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;taa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;tuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;tii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ta&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ட&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ti&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;tI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;tA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;te&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;tE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;to&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;tO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;tu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;tU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ட்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;sau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;sai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;see&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;soo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;saa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;suu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;sii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;sa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ச&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;si&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;sI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;sA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;se&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;செ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;sE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;so&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;sO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;su&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;sU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;சூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ச்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;pau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;pai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;pee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;poo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;போ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;paa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;puu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;pii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;pa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ப&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;pi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;pI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;pA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;pe&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;pE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;po&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;pO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;போ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;pu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;pU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;p&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ப்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;bau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;bai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;bee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;boo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;போ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;baa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;buu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;bii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ba&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ப&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;bi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;bI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;bA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;be&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;bE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;bo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;bO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;போ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;bu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;bU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;பூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ப்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;mau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;mai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;mee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;moo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;maa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;muu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;mii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ma&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ம&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;mi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;mI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;mA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;me&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;mE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;mo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;mO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;mU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;மூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ம்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yoo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yaa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ya&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ய&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ye&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;yU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;யூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ய்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;doo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;daa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;duu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;da&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ட&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;di&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;de&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;do&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;du&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;dU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;டூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;d&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ட்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;noo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;naa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;na&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ன&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ni&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ne&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;no&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;nU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;னூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;n&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ன்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Nau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Nai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Nee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Noo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Naa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Nuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Nii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Na&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ண&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Ni&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;NI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;NA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Ne&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;NE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;No&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;NO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Nu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;NU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ணூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ண்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;lau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;lai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;lee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;loo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;laa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;luu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;lii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;la&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ல&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;li&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;lI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;lA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;le&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;lE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;lo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;lO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;lu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;lU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;லூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;l&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ல்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Lau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Lai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Lee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Loo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Laa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Luu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Lii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;La&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ள&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Li&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;LI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;LA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Le&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;LE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Lo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;LO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;Lu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;LU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ளூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;L&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ள்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;vau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;vai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;vee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;voo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;vaa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;vuu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;vii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;va&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;vi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;vI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;vA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ve&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;vE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;vo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;vO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;vu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;vU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;v&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;வ்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;gau&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கௌ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;gai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கை&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;gee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;goo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;gaa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;guu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;gii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ga&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;க&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;gi&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கி&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;gI&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கீ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;gA&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கா&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ge&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கெ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;gE&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கே&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;go&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கொ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;gO&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கோ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;gu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கு&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;gU&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;கூ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;g&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;க்&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;au&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஔ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ai&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஐ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;aa&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஆ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ee&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஏ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;ii&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஈ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;uu&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஊ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;oo&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஓ&quot;</span>
+
+    <span class="c1"># numerals in Tamil</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-1000&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;௲&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-100&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;௱&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-10&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;௰&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-1&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;௧&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-2&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;௨&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-3&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;௩&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-4&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;௪&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-5&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;௫&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-6&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;௬&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-7&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;௭&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-8&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;௮&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;-9&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;௯&quot;</span>
+
+    <span class="c1"># vowels</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;i&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;இ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;I&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஈ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;அ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஆ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;எ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;E&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஏ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;i&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;இ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;I&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஈ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;உ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஊ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;o&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஒ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஓ&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;௯&quot;</span>
+    <span class="n">table</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;ஃ&quot;</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

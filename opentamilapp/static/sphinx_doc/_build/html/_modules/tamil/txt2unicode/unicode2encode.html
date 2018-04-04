@@ -1,0 +1,275 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tamil.txt2unicode.unicode2encode &#8212; open-tamil  documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for tamil.txt2unicode.unicode2encode</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1">##############################################################################</span>
+<span class="c1">#                                                                            #</span>
+<span class="c1"># (C) 2014 Arulalan.T &lt;arulalant@gmail.com&gt;                                  #</span>
+<span class="c1">#                                                                            #</span>
+<span class="c1"># Author : Arulalan.T &lt;arulalant@gmail.com&gt;                                  #</span>
+<span class="c1"># Date : 04.08.2014                                                          #</span>
+<span class="c1">#                                                                            #</span>
+<span class="c1"># This file is part of open-tamil/txt2uni                                    #</span>
+<span class="c1">#                                                                            #</span>
+<span class="c1"># txt2unicode is free software: you can redistribute it and/or               #</span>
+<span class="c1"># modify it under the terms of the GNU General Public License as published by#</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or (at your #</span>
+<span class="c1"># option) any later version. This program is distributed in the hope that it #</span>
+<span class="c1"># will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty#</span>
+<span class="c1"># of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General#</span>
+<span class="c1"># Public License for more details. You should have received a copy of the GNU#</span>
+<span class="c1"># General Public License along with this program. If not, see                #</span>
+<span class="c1"># &lt;http://www.gnu.org/licenses/&gt;.                                            #</span>
+<span class="c1">#                                                                            #</span>
+<span class="c1">##############################################################################</span>
+
+<span class="kn">from</span> <span class="nn">.encode2utf8</span> <span class="k">import</span> <span class="n">anjal2utf8</span><span class="p">,</span> <span class="n">bamini2utf8</span><span class="p">,</span> <span class="n">boomi2utf8</span><span class="p">,</span> \
+    <span class="n">dinakaran2utf8</span><span class="p">,</span> <span class="n">dinamani2utf8</span><span class="p">,</span> <span class="n">dinathanthy2utf8</span><span class="p">,</span> \
+    <span class="n">kavipriya2utf8</span><span class="p">,</span> <span class="n">murasoli2utf8</span><span class="p">,</span> <span class="n">mylai2utf8</span><span class="p">,</span> <span class="n">nakkeeran2utf8</span><span class="p">,</span> \
+    <span class="n">roman2utf8</span><span class="p">,</span> <span class="n">tab2utf8</span><span class="p">,</span> <span class="n">tam2utf8</span><span class="p">,</span> <span class="n">tscii2utf8</span><span class="p">,</span> <span class="n">pallavar2utf8</span><span class="p">,</span> \
+    <span class="n">indoweb2utf8</span><span class="p">,</span> <span class="n">koeln2utf8</span><span class="p">,</span> <span class="n">libi2utf8</span><span class="p">,</span> <span class="n">oldvikatan2utf8</span><span class="p">,</span> <span class="n">webulagam2utf8</span><span class="p">,</span> \
+    <span class="n">diacritic2utf8</span><span class="p">,</span> <span class="n">shreelipi2utf8</span><span class="p">,</span> <span class="n">softview2utf8</span><span class="p">,</span> <span class="n">tace2utf8</span><span class="p">,</span> <span class="n">vanavil2utf8</span><span class="p">,</span> \
+    <span class="n">indica2utf8</span><span class="p">,</span> <span class="n">anu2utf8</span><span class="p">,</span> <span class="n">shreelipiavid2utf8</span>
+
+<span class="kn">from</span> <span class="nn">.encode2unicode</span> <span class="k">import</span> <span class="n">_all_encodes_</span><span class="p">,</span> <span class="n">_get_unique_ch</span><span class="p">,</span> \
+    <span class="n">_get_unique_common_encodes</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;unicode2anjal&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2bamini&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2boomi&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;unicode2dinakaran&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2dinathanthy&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2kavipriya&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;unicode2murasoli&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2mylai&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2nakkeeran&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;unicode2roman&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2tab&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2tam&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2tscii&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;unicode2indoweb&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2koeln&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2libi&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2oldvikatan&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;unicode2webulagam&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2auto&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2dinamani&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;unicode2pallavar&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2diacritic&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2shreelipi&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;unicode2softview&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2tace&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2vanavil&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2indica&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;unicode2anu&#39;</span><span class="p">,</span> <span class="s1">&#39;unicode2shreelipiavid&#39;</span><span class="p">]</span>
+    
+    
+<span class="k">def</span> <span class="nf">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">charmap</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    charmap : dictionary which has both encode as key, unicode as value</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="n">unitxt</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">val</span><span class="p">,</span><span class="n">key</span> <span class="ow">in</span> <span class="n">charmap</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+                <span class="c1"># end of if val in text:</span>
+            <span class="n">unitxt</span> <span class="o">+=</span> <span class="n">line</span>
+        <span class="c1"># end of for line in text:</span>
+        <span class="k">return</span> <span class="n">unitxt</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">val</span><span class="p">,</span><span class="n">key</span> <span class="ow">in</span> <span class="n">charmap</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">text</span>
+
+<div class="viewcode-block" id="unicode2anjal"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2anjal">[docs]</a><span class="k">def</span> <span class="nf">unicode2anjal</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">anjal2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2bamini"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2bamini">[docs]</a><span class="k">def</span> <span class="nf">unicode2bamini</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">bamini2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2boomi"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2boomi">[docs]</a><span class="k">def</span> <span class="nf">unicode2boomi</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">boomi2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2dinakaran"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2dinakaran">[docs]</a><span class="k">def</span> <span class="nf">unicode2dinakaran</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">dinakaran2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2dinamani"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2dinamani">[docs]</a><span class="k">def</span> <span class="nf">unicode2dinamani</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">dinamani2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2dinathanthy"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2dinathanthy">[docs]</a><span class="k">def</span> <span class="nf">unicode2dinathanthy</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">dinathanthy2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2kavipriya"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2kavipriya">[docs]</a><span class="k">def</span> <span class="nf">unicode2kavipriya</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">kavipriya2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2murasoli"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2murasoli">[docs]</a><span class="k">def</span> <span class="nf">unicode2murasoli</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">murasoli2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2mylai"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2mylai">[docs]</a><span class="k">def</span> <span class="nf">unicode2mylai</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">mylai2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2nakkeeran"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2nakkeeran">[docs]</a><span class="k">def</span> <span class="nf">unicode2nakkeeran</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">nakkeeran2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2roman"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2roman">[docs]</a><span class="k">def</span> <span class="nf">unicode2roman</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">roman2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2tab"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2tab">[docs]</a><span class="k">def</span> <span class="nf">unicode2tab</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">tab2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2tam"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2tam">[docs]</a><span class="k">def</span> <span class="nf">unicode2tam</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">tam2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2tscii"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2tscii">[docs]</a><span class="k">def</span> <span class="nf">unicode2tscii</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">tscii2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2pallavar"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2pallavar">[docs]</a><span class="k">def</span> <span class="nf">unicode2pallavar</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">pallavar2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2indoweb"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2indoweb">[docs]</a><span class="k">def</span> <span class="nf">unicode2indoweb</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">indoweb2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2koeln"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2koeln">[docs]</a><span class="k">def</span> <span class="nf">unicode2koeln</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">koeln2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2libi"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2libi">[docs]</a><span class="k">def</span> <span class="nf">unicode2libi</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">libi2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2oldvikatan"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2oldvikatan">[docs]</a><span class="k">def</span> <span class="nf">unicode2oldvikatan</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">oldvikatan2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2webulagam"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2webulagam">[docs]</a><span class="k">def</span> <span class="nf">unicode2webulagam</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">webulagam2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2diacritic"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2diacritic">[docs]</a><span class="k">def</span> <span class="nf">unicode2diacritic</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">diacritic2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2shreelipi"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2shreelipi">[docs]</a><span class="k">def</span> <span class="nf">unicode2shreelipi</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">shreelipi2utf8</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="unicode2softview"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2softview">[docs]</a><span class="k">def</span> <span class="nf">unicode2softview</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">softview2utf8</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="unicode2tace"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2tace">[docs]</a><span class="k">def</span> <span class="nf">unicode2tace</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">tace2utf8</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="unicode2vanavil"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2vanavil">[docs]</a><span class="k">def</span> <span class="nf">unicode2vanavil</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">vanavil2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2indica"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2indica">[docs]</a><span class="k">def</span> <span class="nf">unicode2indica</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">indica2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2anu"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2anu">[docs]</a><span class="k">def</span> <span class="nf">unicode2anu</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">anu2utf8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="unicode2shreelipiavid"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2shreelipiavid">[docs]</a><span class="k">def</span> <span class="nf">unicode2shreelipiavid</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">shreelipiavid2utf8</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="unicode2auto"><a class="viewcode-back" href="../../../tamil.txt2unicode.html#tamil.txt2unicode.unicode2encode.unicode2auto">[docs]</a><span class="k">def</span> <span class="nf">unicode2auto</span><span class="p">(</span><span class="n">unicode_text</span><span class="p">,</span> <span class="n">encode_text</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function will convert unicode (first argument) text into other</span>
+<span class="sd">    encodes by auto find the encode (from available encodes) by using sample</span>
+<span class="sd">    encode text in second argument of this function.</span>
+
+<span class="sd">    unicode_text : Pass unicode string which has to convert into other encode.</span>
+<span class="sd">    encode_text : Pass sample encode string to identify suitable encode for it.</span>
+
+<span class="sd">    This function tries to identify encode in available encodings.</span>
+<span class="sd">    If it finds, then it will convert unicode_text into encode string.</span>
+
+<span class="sd">    Author : Arulalan.T</span>
+
+<span class="sd">    08.08.2014</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_all_unique_encodes_</span><span class="p">,</span> <span class="n">_all_common_encodes_</span> <span class="o">=</span> <span class="n">_get_unique_common_encodes</span><span class="p">()</span>
+    <span class="c1"># get unique word which falls under any one of available encodes from</span>
+    <span class="c1"># user passed text lines</span>
+    <span class="n">unique_chars</span> <span class="o">=</span> <span class="n">_get_unique_ch</span><span class="p">(</span><span class="n">encode_text</span><span class="p">,</span> <span class="n">_all_common_encodes_</span><span class="p">)</span>
+    <span class="c1"># count common encode chars</span>
+    <span class="n">clen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">_all_common_encodes_</span><span class="p">)</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Sorry, couldn&#39;t find encode :-(</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;Need more words to find unique encode out side of </span><span class="si">%d</span><span class="s1"> &#39;</span> <span class="o">%</span> <span class="n">clen</span>
+    <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;common compound characters&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">unique_chars</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+    <span class="c1"># end of if not unique_chars:</span>
+
+    <span class="k">for</span> <span class="n">encode_name</span><span class="p">,</span> <span class="n">encode_keys</span> <span class="ow">in</span> <span class="n">_all_unique_encodes_</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">encode_keys</span><span class="p">):</span> <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">encode_keys</span><span class="p">:</span>
+            <span class="c1"># check either encode char is presnent in word</span>
+            <span class="k">if</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">unique_chars</span><span class="p">:</span>
+                <span class="c1"># found encode</span>
+                <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;Found encode : &quot;</span><span class="p">,</span> <span class="n">encode_name</span><span class="p">))</span>
+                <span class="n">encode</span> <span class="o">=</span> <span class="n">_all_encodes_</span><span class="p">[</span><span class="n">encode_name</span><span class="p">]</span>
+                <span class="k">return</span> <span class="n">unicode2encode</span><span class="p">(</span><span class="n">unicode_text</span><span class="p">,</span> <span class="n">encode</span><span class="p">)</span>
+            <span class="c1"># end of if ch in unique_chars:</span>
+        <span class="c1"># end of ifor ch in encode_keys:</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span></div>
+    <span class="c1"># end of for encode in _all_unique_encodes_:</span>
+<span class="c1"># end of def auto2unicode(text):</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,215 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tamil.utils.santhirules &#8212; open-tamil  documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for tamil.utils.santhirules</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">tamil.utf8</span> <span class="k">import</span> <span class="n">splitMeiUyir</span><span class="p">,</span> <span class="n">joinMeiUyir</span><span class="p">,</span> <span class="n">get_letters</span><span class="p">,</span> <span class="n">uyir_letters</span><span class="p">,</span> <span class="n">mei_letters</span>
+
+<span class="c1"># http://www.tamilvu.org/library/lA432/html/lA432cn1.htm</span>
+<span class="c1"># 1. முதல் சொல்லின் இறுதி எழுத்து அ</span>
+<span class="c1"># http://www.tamilvu.org/slet/lA100/lA100pd3.jsp?bookid=169&amp;pno=77</span>
+<span class="n">all_rules</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sa">u</span><span class="s1">&#39;அ&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1"># todo : need to fine tune this solo words</span>
+        <span class="s1">&#39;first_solo_words&#39;</span><span class="p">:</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;என்ன&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;நல்ல&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;இன்ன&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;இன்றைய&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;படித்த&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எழுதாத&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;secondword_first_chars&#39;</span><span class="p">:</span> <span class="p">(</span><span class="sa">u</span><span class="s2">&quot;க்&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;ச்&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;த்&quot;</span><span class="p">,</span> <span class="sa">u</span><span class="s2">&quot;ப்&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;diff_jn_words&#39;</span><span class="p">:</span> <span class="p">(((</span><span class="sa">u</span><span class="s1">&#39;சின்ன&#39;</span><span class="p">),</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;சிறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;சிறிய&#39;</span><span class="p">),</span> <span class="sa">u</span><span class="s1">&#39;ஞ்&#39;</span><span class="p">),</span> <span class="p">),</span>
+        <span class="s1">&#39;special_secondword_first_chars&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">uyir_letters</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;வ்&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;same_words&#39;</span><span class="p">:</span> <span class="p">((</span><span class="sa">u</span><span class="s1">&#39;பல&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;சில&#39;</span><span class="p">),</span> <span class="sa">u</span><span class="s1">&#39;ற்&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;same_word_disappear_lastchar&#39;</span><span class="p">:</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;அ&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;firstword_double_special_secondword&#39;</span><span class="p">:</span> <span class="p">((</span><span class="sa">u</span><span class="s1">&#39;என்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;என&#39;</span><span class="p">),</span> <span class="sa">u</span><span class="s1">&#39;வ்&#39;</span><span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="joinWords"><a class="viewcode-back" href="../../../tamil.utils.html#tamil.utils.santhirules.joinWords">[docs]</a><span class="k">def</span> <span class="nf">joinWords</span><span class="p">(</span><span class="n">word_a</span><span class="p">,</span> <span class="n">word_b</span><span class="p">):</span>
+    <span class="n">word_a</span> <span class="o">=</span> <span class="n">word_a</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">word_b</span> <span class="o">=</span> <span class="n">word_b</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="c1"># get readable letters of first word</span>
+    <span class="n">first_word_letters</span> <span class="o">=</span> <span class="n">get_letters</span><span class="p">(</span><span class="n">word_a</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">first_word_letters</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">mei_letters</span><span class="p">:</span>
+        <span class="c1"># first word last char is mei letter. so just return as it is.</span>
+        <span class="c1"># todo : apply special conditions also</span>
+        <span class="n">rval</span> <span class="o">=</span> <span class="n">word_a</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">word_b</span>
+        <span class="k">return</span> <span class="n">rval</span>
+    <span class="c1"># end of if first_word_last_chars[-1] in mei_letters:</span>
+
+    <span class="c1"># get mei &amp; uyir characters of first word&#39;s last char</span>
+    <span class="n">first_word_last_chars</span> <span class="o">=</span> <span class="n">splitMeiUyir</span><span class="p">(</span><span class="n">first_word_letters</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_word_last_chars</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">first_word_last_mei_char</span><span class="p">,</span> <span class="n">first_word_last_uyir_char</span> <span class="o">=</span> <span class="n">first_word_last_chars</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">first_word_last_mei_char</span><span class="p">,</span> <span class="n">first_word_last_uyir_char</span> <span class="o">=</span> <span class="n">first_word_last_chars</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">first_word_last_chars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># get rule sub dictionary from all dictionary by passing</span>
+    <span class="n">rule</span> <span class="o">=</span> <span class="n">all_rules</span><span class="p">[</span><span class="n">first_word_last_uyir_char</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">word_a</span> <span class="o">==</span> <span class="n">word_b</span><span class="p">:</span>
+        <span class="c1"># both input words are same</span>
+        <span class="n">same_word_rule</span> <span class="o">=</span> <span class="n">rule</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;same_words&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="n">word_a</span> <span class="ow">in</span> <span class="n">same_word_rule</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="c1"># get conjuction char</span>
+            <span class="n">jn</span> <span class="o">=</span> <span class="n">same_word_rule</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="c1"># insert conjuction char between input words</span>
+            <span class="n">rval</span> <span class="o">=</span> <span class="n">first_word_letters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">jn</span> <span class="o">+</span> <span class="n">word_b</span>
+            <span class="k">return</span> <span class="n">rval</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_word_letters</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="c1"># both words are same but length is 3.</span>
+            <span class="n">disappear_lastchar</span> <span class="o">=</span> <span class="n">rule</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;same_word_disappear_lastchar&#39;</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="k">if</span> <span class="n">disappear_lastchar</span><span class="p">:</span>
+                <span class="n">disappear_lastchar</span> <span class="o">=</span> <span class="n">disappear_lastchar</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">first_word_last_uyir_char</span> <span class="o">==</span> <span class="n">disappear_lastchar</span><span class="p">:</span>
+                    <span class="n">first_word_first_char</span> <span class="o">=</span> <span class="n">first_word_letters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="c1"># get uyir char of second word&#39;s first char</span>
+                    <span class="n">first_word_first_uyir_char</span> <span class="o">=</span> <span class="n">splitMeiUyir</span><span class="p">(</span><span class="n">first_word_first_char</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="c1"># get conjuction char by joining first word&#39;s last mei char and second word&#39;s first uyir char</span>
+                    <span class="n">jn</span> <span class="o">=</span> <span class="n">joinMeiUyir</span><span class="p">(</span><span class="n">first_word_last_mei_char</span><span class="p">,</span> <span class="n">first_word_first_uyir_char</span><span class="p">)</span>
+                    <span class="c1"># get first word till pre-last char</span>
+                    <span class="n">first_word</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">first_word_letters</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="c1"># get second word from second char till end</span>
+                    <span class="n">second_word</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">first_word_letters</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+                    <span class="c1"># join all first, conjuction, second word</span>
+                    <span class="n">rval</span> <span class="o">=</span> <span class="n">first_word</span> <span class="o">+</span> <span class="n">jn</span> <span class="o">+</span> <span class="n">second_word</span>
+                    <span class="k">return</span> <span class="n">rval</span>
+            <span class="c1"># end of if disappear_lastchar:</span>
+        <span class="c1"># end of if word_a in same_word_rule[0]:</span>
+    <span class="c1"># end of if word_a == word_b:</span>
+
+    <span class="k">if</span> <span class="n">word_a</span> <span class="ow">in</span> <span class="n">rule</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;first_solo_words&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="c1"># todo : need to find tune this first solo word check like using startswith, endswith, etc</span>
+        <span class="n">rval</span> <span class="o">=</span> <span class="n">word_a</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">word_b</span>
+        <span class="k">return</span> <span class="n">rval</span>
+    <span class="c1"># end of if word_a in rule.get(&#39;first_solo_words&#39;, []):</span>
+
+    <span class="k">for</span> <span class="n">diff_jn</span> <span class="ow">in</span> <span class="n">rule</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;diff_jn_words&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">if</span> <span class="n">word_a</span> <span class="ow">in</span> <span class="n">diff_jn</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">last</span> <span class="ow">in</span> <span class="n">diff_jn</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">word_b</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">last</span><span class="p">):</span>
+                    <span class="c1"># apply different conjuction char rule</span>
+                    <span class="n">rval</span> <span class="o">=</span> <span class="n">word_a</span> <span class="o">+</span> <span class="n">diff_jn</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">word_b</span>
+                    <span class="k">return</span> <span class="n">rval</span>
+    <span class="c1"># end of for diff_jn in  rule.get(&#39;diff_jn_words&#39;, []):</span>
+
+    <span class="c1"># get readable letters of second word</span>
+    <span class="n">second_word_letters</span> <span class="o">=</span> <span class="n">get_letters</span><span class="p">(</span><span class="n">word_b</span><span class="p">)</span>
+    <span class="c1"># get second word&#39;s from second char to till end</span>
+    <span class="n">second_word_after_first_char</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">second_word_letters</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="c1"># get mei &amp; uyir characters of second word&#39;s first char</span>
+    <span class="n">second_word_first_chars</span> <span class="o">=</span> <span class="n">splitMeiUyir</span><span class="p">(</span><span class="n">second_word_letters</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">second_word_first_chars</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">second_word_first_mei_char</span><span class="p">,</span> <span class="n">second_word_first_uyir_char</span> <span class="o">=</span> <span class="n">second_word_first_chars</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">second_word_first_mei_char</span><span class="p">,</span> <span class="n">second_word_first_uyir_char</span> <span class="o">=</span> <span class="n">second_word_first_chars</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">second_word_first_chars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">second_word_first_mei_char</span> <span class="ow">in</span> <span class="n">rule</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;secondword_first_chars&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="c1"># apply major conjuction rule</span>
+        <span class="k">return</span> <span class="n">word_a</span> <span class="o">+</span> <span class="n">second_word_first_mei_char</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">word_b</span>
+    <span class="c1"># end of if second_word_first_mei_char in rule.get(&#39;secondword_first_chars&#39;, []):</span>
+
+    <span class="n">firstword_double_special_secondword</span> <span class="o">=</span> <span class="n">rule</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;firstword_double_special_secondword&#39;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="k">if</span> <span class="n">firstword_double_special_secondword</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_word_letters</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="c1"># check either first word has repeated two times</span>
+            <span class="k">if</span> <span class="n">first_word_letters</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">first_word_letters</span><span class="p">[</span><span class="mi">2</span><span class="p">:]:</span>  <span class="c1"># first word repeat two times within it</span>
+                <span class="c1"># get root second word by removing prefix</span>
+                <span class="n">sec_word</span> <span class="o">=</span> <span class="n">second_word_first_uyir_char</span> <span class="o">+</span> <span class="n">second_word_after_first_char</span>
+                <span class="k">if</span> <span class="n">sec_word</span> <span class="ow">in</span> <span class="n">firstword_double_special_secondword</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="c1"># get conjuction char by joining  special conjuction and  second root word</span>
+                    <span class="n">jn</span> <span class="o">=</span> <span class="n">joinMeiUyir</span><span class="p">(</span><span class="n">firstword_double_special_secondword</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">second_word_first_uyir_char</span><span class="p">)</span>
+                    <span class="c1"># join all</span>
+                    <span class="k">return</span> <span class="n">word_a</span> <span class="o">+</span> <span class="n">jn</span> <span class="o">+</span> <span class="n">second_word_after_first_char</span>
+    <span class="c1"># end of if firstword_double_special_secondword:</span>
+
+    <span class="n">special_secondword_first_chars</span> <span class="o">=</span> <span class="n">rule</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;special_secondword_first_chars&#39;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="k">if</span> <span class="n">special_secondword_first_chars</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">second_word_first_uyir_char</span> <span class="ow">in</span> <span class="n">special_secondword_first_chars</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="c1"># get special conjuction char</span>
+            <span class="n">jn</span> <span class="o">=</span> <span class="n">special_secondword_first_chars</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="c1"># join special conjuction char with second word&#39;s first uyir char</span>
+            <span class="n">second_word_first_schar</span> <span class="o">=</span> <span class="n">joinMeiUyir</span><span class="p">(</span><span class="n">jn</span><span class="p">,</span> <span class="n">second_word_first_uyir_char</span><span class="p">)</span>
+            <span class="c1"># complete second word with prefix of conjuction</span>
+            <span class="n">second_word</span> <span class="o">=</span> <span class="n">second_word_first_schar</span> <span class="o">+</span> <span class="n">second_word_after_first_char</span>
+            <span class="c1"># join all</span>
+            <span class="k">return</span> <span class="n">word_a</span> <span class="o">+</span> <span class="n">second_word</span>
+        <span class="c1"># end of if second_word_first_uyir_char in special_secondword_first_chars[0]:</span>
+    <span class="c1"># end of if special_secondword_first_chars:</span>
+
+    <span class="c1"># if all above rules not applicable, then just return as it is !</span>
+    <span class="k">return</span> <span class="n">word_a</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">word_b</span></div>
+<span class="c1"># end of def joinWords(word_a, word_b):</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

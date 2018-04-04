@@ -1,0 +1,394 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tamil.numeral &#8212; open-tamil  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for tamil.numeral</h1><div class="highlight"><pre>
+<span></span><span class="c1"># This Python file uses the following encoding: utf-8</span>
+<span class="c1"># (C) 2015-2018 Muthiah Annamalai</span>
+<span class="c1"># This file is part of open-tamil project</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="n">PYTHON3</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span> <span class="o">&gt;</span> <span class="s1">&#39;3&#39;</span>
+
+<span class="k">if</span> <span class="n">PYTHON3</span><span class="p">:</span>
+    <span class="n">unicode</span> <span class="o">=</span> <span class="nb">str</span>
+    <span class="k">class</span> <span class="nc">long</span><span class="p">(</span><span class="nb">int</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="num2tamilstr"><a class="viewcode-back" href="../../tamil.html#tamil.numeral.num2tamilstr">[docs]</a><span class="k">def</span> <span class="nf">num2tamilstr</span><span class="p">(</span> <span class="o">*</span><span class="n">args</span> <span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; work till one lakh crore - i.e 1e5*1e7 = 1e12.</span>
+<span class="sd">        turn number into a numeral, Indian style. Fractions upto 1e-30&quot;&quot;&quot;</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">filenames</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span><span class="mi">3</span><span class="p">:</span>
+        <span class="n">tensSpecial</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tensSpecial</span><span class="o">=</span><span class="s1">&#39;BASIC&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span> <span class="nb">filter</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">T</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">number</span><span class="p">,</span> <span class="n">T</span><span class="p">),</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">unicode</span><span class="p">,</span><span class="nb">int</span><span class="p">,</span> <span class="n">long</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">number</span><span class="p">,</span><span class="nb">complex</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;num2tamilstr input has to be a long or integer or float&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">long</span><span class="p">(</span><span class="mf">1e12</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;num2tamilstr input is too large&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">u</span><span class="s2">&quot;- &quot;</span><span class="o">+</span><span class="n">num2tamilstr</span><span class="p">(</span> <span class="o">-</span><span class="n">number</span> <span class="p">)</span>
+
+    <span class="n">units</span> <span class="o">=</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;பூஜ்ஜியம்&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ஒன்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;இரண்டு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;மூன்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;நான்கு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ஐந்து&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ஆறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ஏழு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எட்டு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ஒன்பது&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;பத்து&#39;</span><span class="p">)</span> <span class="c1"># 0-10</span>
+    <span class="n">units_suffix</span> <span class="o">=</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;பூஜ்ஜியம்&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;தொன்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;திரண்டு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;மூன்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;நான்கு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;தைந்து&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;தாறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;தேழு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;தெட்டு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;தொன்பது&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;பத்து&#39;</span><span class="p">)</span> <span class="c1"># 0-10</span>
+    <span class="n">units_suffix_nine</span> <span class="o">=</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;பூஜ்ஜியம்&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;றொன்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;றிரண்டு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;மூன்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;நான்கு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;றைந்து&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;றாறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;றேழு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;றெட்டு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;றொன்பது&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;பத்து&#39;</span><span class="p">)</span> <span class="c1"># 0-10</span>
+    <span class="n">tween</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">5.0</span><span class="p">,</span><span class="mf">6.0</span><span class="p">,</span><span class="mf">7.0</span><span class="p">,</span><span class="mf">8.0</span><span class="p">,</span><span class="mf">9.0</span><span class="p">]</span>
+    <span class="n">teens</span> <span class="o">=</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;பதினொன்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;பனிரண்டு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;பதிமூன்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;பதினான்கு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;பதினைந்து&#39;</span><span class="p">,</span><span class="sa">u</span><span class="s1">&#39;பதினாறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;பதினேழு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;பதினெட்டு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;பத்தொன்பது&#39;</span><span class="p">)</span> <span class="c1"># 11-19</span>
+    <span class="n">tens</span> <span class="o">=</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;பத்து&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;இருபது&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;முப்பது&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;நாற்பது&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ஐம்பது&#39;</span><span class="p">,</span><span class="sa">u</span><span class="s1">&#39;அறுபது&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எழுபது&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எண்பது&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;தொன்னூறு&#39;</span><span class="p">)</span> <span class="c1"># 10-90</span>
+    <span class="n">tens_full_prefix</span> <span class="o">=</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;இருபத்து&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;முப்பத்து&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;நாற்பத்து&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ஐம்பத்து&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;அறுபத்து&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எழுபத்து&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எண்பத்து&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;தொன்னூற்று&#39;</span><span class="p">)</span> <span class="c1"># 10+-90+</span>
+    <span class="n">tens_prefix</span> <span class="o">=</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;இருபத்&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;முப்பத்&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;நாற்பத்&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ஐம்பத்&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;அறுபத்&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எழுபத்&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எண்பத்&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;தொன்னூற்&#39;</span><span class="p">)</span> <span class="c1"># 10+-90+</span>
+    <span class="n">hundreds</span> <span class="o">=</span> <span class="p">(</span> <span class="sa">u</span><span class="s1">&#39;நூறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;இருநூறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;முன்னூறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;நாநூறு&#39;</span><span class="p">,</span><span class="sa">u</span><span class="s1">&#39;ஐநூறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;அறுநூறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எழுநூறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எண்ணூறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;தொள்ளாயிரம்&#39;</span><span class="p">)</span> <span class="c1">#100 - 900</span>
+    <span class="n">hundreds_suffix</span> <span class="o">=</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;நூற்றி&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;இருநூற்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;முன்னூற்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;நாநூற்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ஐநூற்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;அறுநூற்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எழுநூற்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எண்ணூற்று&#39;</span><span class="p">,</span><span class="sa">u</span><span class="s1">&#39;தொள்ளாயிரத்து&#39;</span><span class="p">)</span> <span class="c1">#100+ - 900+</span>
+
+    <span class="n">one_thousand_prefix</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;ஓர்&#39;</span>
+    <span class="n">thousands</span> <span class="o">=</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;ஆயிரம்&#39;</span><span class="p">,</span><span class="sa">u</span><span class="s1">&#39;ஆயிரத்து&#39;</span><span class="p">)</span>
+
+    <span class="n">one_prefix</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;ஒரு&#39;</span>
+    <span class="n">lakh</span> <span class="o">=</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;இலட்சம்&#39;</span><span class="p">,</span><span class="sa">u</span><span class="s1">&#39;இலட்சத்து&#39;</span><span class="p">)</span>
+    <span class="n">crore</span> <span class="o">=</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;கோடி&#39;</span><span class="p">,</span><span class="sa">u</span><span class="s1">&#39;கோடியே&#39;</span><span class="p">)</span>
+
+    <span class="n">pulli</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;புள்ளி&#39;</span>
+    <span class="n">n_one</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">n_ten</span> <span class="o">=</span> <span class="mf">10.0</span>
+    <span class="n">n_hundred</span> <span class="o">=</span> <span class="mf">100.0</span>
+    <span class="n">n_thousand</span> <span class="o">=</span> <span class="mf">1000.0</span>
+    <span class="n">n_lakh</span> <span class="o">=</span> <span class="mf">100.0</span><span class="o">*</span><span class="n">n_thousand</span>
+    <span class="n">n_crore</span> <span class="o">=</span> <span class="p">(</span><span class="mf">100.0</span><span class="o">*</span><span class="n">n_lakh</span><span class="p">)</span>
+    <span class="c1"># handle fractional parts</span>
+    <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="ow">and</span> <span class="nb">float</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+        <span class="n">rval</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">rval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pulli</span><span class="p">)</span>
+        <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="s1">&#39;pulli&#39;</span> <span class="p">)</span>
+        <span class="n">number_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">number</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0.&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">digit</span> <span class="ow">in</span> <span class="n">number_str</span><span class="p">:</span>
+            <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="s2">&quot;units_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="nb">int</span><span class="p">(</span><span class="n">digit</span><span class="p">))</span>
+            <span class="n">rval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">units</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">digit</span><span class="p">)]</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="sa">u</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rval</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">number</span><span class="p">,</span><span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">number</span><span class="p">,</span><span class="n">unicode</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;&quot;</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">is_negative</span> <span class="o">=</span> <span class="n">number</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-&quot;</span>
+        <span class="k">if</span>  <span class="n">is_negative</span><span class="p">:</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="n">number</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">frac_part</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">number</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">rat_part</span><span class="p">,</span><span class="n">frac_part</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+            <span class="n">frac_part</span> <span class="o">=</span> <span class="n">num2tamilstr</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;0.&quot;</span><span class="o">+</span><span class="n">frac_part</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rat_part</span> <span class="o">=</span> <span class="n">number</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rat_part</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">num2tamilstr</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">rat_part</span><span class="p">))</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span><span class="sa">u</span><span class="s2">&quot; &quot;</span><span class="o">+</span> <span class="n">frac_part</span>
+        <span class="k">return</span> <span class="n">is_negative</span> <span class="ow">and</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="n">result</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">or</span> <span class="n">result</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="n">suffix_base</span> <span class="o">=</span> <span class="p">{</span> <span class="n">n_crore</span><span class="p">:</span> <span class="n">crore</span><span class="p">,</span> <span class="n">n_lakh</span> <span class="p">:</span> <span class="n">lakh</span><span class="p">,</span> <span class="n">n_thousand</span> <span class="p">:</span> <span class="n">thousands</span><span class="p">}</span>
+    <span class="n">suffix_file_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">n_crore</span><span class="p">:</span> <span class="s2">&quot;crore&quot;</span><span class="p">,</span> <span class="n">n_lakh</span> <span class="p">:</span> <span class="s2">&quot;lakh&quot;</span><span class="p">,</span> <span class="n">n_thousand</span> <span class="p">:</span> <span class="s2">&quot;thousands&quot;</span><span class="p">}</span>
+
+    <span class="n">file_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">n_crore</span> <span class="p">:[</span><span class="s2">&quot;one_prefix&quot;</span><span class="p">,</span><span class="s2">&quot;crore_0&quot;</span><span class="p">],</span>
+                <span class="n">n_lakh</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;one_prefix&quot;</span><span class="p">,</span><span class="s2">&quot;lakh_0&quot;</span><span class="p">],</span>
+                <span class="n">n_thousand</span> <span class="p">:</span>  <span class="p">[</span><span class="s2">&quot;one_thousand_prefix&quot;</span><span class="p">,</span> <span class="s2">&quot;thousands_0&quot;</span><span class="p">],</span>
+               <span class="n">n_hundred</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;hundreds_0&quot;</span><span class="p">],</span> <span class="c1">#special</span>
+               <span class="n">n_ten</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;units_10&quot;</span><span class="p">],</span>
+               <span class="n">n_one</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;units_1&quot;</span><span class="p">]}</span>
+
+    <span class="n">num_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">n_crore</span> <span class="p">:</span> <span class="p">[</span><span class="n">one_prefix</span><span class="p">,</span><span class="n">crore</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+               <span class="n">n_lakh</span>  <span class="p">:</span> <span class="p">[</span><span class="n">one_prefix</span><span class="p">,</span><span class="n">lakh</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+               <span class="n">n_thousand</span> <span class="p">:</span> <span class="p">[</span><span class="n">one_thousand_prefix</span><span class="p">,</span> <span class="n">thousands</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+               <span class="n">n_hundred</span> <span class="p">:</span> <span class="p">[</span><span class="n">hundreds</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="c1">#special</span>
+               <span class="n">n_ten</span> <span class="p">:</span> <span class="p">[</span><span class="n">units</span><span class="p">[</span><span class="mi">10</span><span class="p">]],</span>
+               <span class="n">n_one</span> <span class="p">:</span> <span class="p">[</span><span class="n">units</span><span class="p">[</span><span class="mi">1</span><span class="p">]]}</span>
+
+    <span class="n">all_bases</span> <span class="o">=</span> <span class="p">[</span><span class="n">n_crore</span><span class="p">,</span> <span class="n">n_lakh</span><span class="p">,</span> <span class="n">n_thousand</span><span class="p">,</span> <span class="n">n_hundred</span><span class="p">,</span> <span class="n">n_ten</span><span class="p">,</span><span class="n">n_one</span><span class="p">]</span>
+    <span class="n">allowed_bases</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">base</span><span class="p">:</span> <span class="n">number</span> <span class="o">&gt;=</span> <span class="n">base</span><span class="p">,</span> <span class="n">all_bases</span> <span class="p">))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">allowed_bases</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">n_base</span> <span class="o">=</span> <span class="n">allowed_bases</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="n">n_base</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tensSpecial</span><span class="o">==</span><span class="s1">&#39;BASIC&#39;</span><span class="p">:</span>
+                <span class="n">filenames</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">file_map</span><span class="p">[</span><span class="n">n_base</span><span class="p">])</span>
+                <span class="k">return</span> <span class="sa">u</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">num_map</span><span class="p">[</span><span class="n">n_base</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="n">tensSpecial</span><span class="o">==</span><span class="s1">&#39;NINES&#39;</span><span class="p">:</span>
+                <span class="n">filenames</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">file_map</span><span class="p">[</span><span class="n">n_base</span><span class="p">])</span>
+                <span class="k">return</span> <span class="n">units_suffix_nine</span><span class="p">[</span><span class="n">long</span><span class="p">(</span><span class="n">number</span><span class="o">%</span><span class="mi">10</span><span class="p">)]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">filenames</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">file_map</span><span class="p">[</span><span class="n">n_base</span><span class="p">])</span>
+                <span class="k">return</span> <span class="n">units_suffix</span><span class="p">[</span><span class="n">long</span><span class="p">(</span><span class="n">number</span><span class="o">%</span><span class="mi">10</span><span class="p">)]</span>
+        <span class="n">quotient_number</span> <span class="o">=</span> <span class="n">long</span><span class="p">(</span> <span class="n">number</span><span class="o">/</span><span class="n">n_base</span> <span class="p">)</span>
+        <span class="n">residue_number</span> <span class="o">=</span> <span class="n">number</span> <span class="o">-</span> <span class="n">n_base</span><span class="o">*</span><span class="n">quotient_number</span>
+        <span class="c1">#print number, n_base, quotient_number, residue_number, tensSpecial</span>
+        <span class="k">if</span> <span class="n">n_base</span> <span class="o">==</span> <span class="n">n_one</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">number</span><span class="p">,</span><span class="nb">float</span><span class="p">):</span>
+                <span class="n">int_part</span> <span class="o">=</span> <span class="n">long</span><span class="p">(</span><span class="n">number</span><span class="o">%</span><span class="mi">10</span><span class="p">)</span>
+                <span class="n">frac</span> <span class="o">=</span> <span class="n">number</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">int_part</span><span class="p">)</span>
+                <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;units_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">int_part</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">frac</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-30</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">tensSpecial</span><span class="o">==</span><span class="s1">&#39;BASIC&#39;</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">units</span><span class="p">[</span><span class="n">int_part</span><span class="p">]</span><span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">num2tamilstr</span><span class="p">(</span><span class="n">frac</span><span class="p">,</span><span class="n">filenames</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">tensSpecial</span><span class="o">==</span><span class="s1">&#39;NINES&#39;</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">units_suffix_nine</span><span class="p">[</span><span class="n">int_part</span><span class="p">]</span><span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">num2tamilstr</span><span class="p">(</span><span class="n">frac</span><span class="p">,</span><span class="n">filenames</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">units_suffix</span><span class="p">[</span><span class="n">int_part</span><span class="p">]</span><span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">num2tamilstr</span><span class="p">(</span><span class="n">frac</span><span class="p">,</span><span class="n">filenames</span><span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">tensSpecial</span><span class="o">==</span><span class="s1">&#39;BASIC&#39;</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">units</span><span class="p">[</span><span class="n">int_part</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="n">tensSpecial</span><span class="o">==</span><span class="s1">&#39;NINES&#39;</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">units_suffix_nine</span><span class="p">[</span><span class="n">int_part</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">units_suffix</span><span class="p">[</span><span class="n">int_part</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">tensSpecial</span><span class="o">==</span><span class="s1">&#39;BASIC&#39;</span><span class="p">:</span>
+                    <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;units_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">number</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">units</span><span class="p">[</span><span class="n">number</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="n">tensSpecial</span><span class="o">==</span><span class="s1">&#39;NINES&#39;</span><span class="p">:</span>
+                    <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;units_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">number</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">units_suffix_nine</span><span class="p">[</span><span class="n">number</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;units_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">number</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">units_suffix</span><span class="p">[</span><span class="n">number</span><span class="p">]</span>
+
+        <span class="k">elif</span> <span class="n">n_base</span> <span class="o">==</span> <span class="n">n_ten</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">residue_number</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+                <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;tens_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">quotient_number</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">residue_number</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">tens</span><span class="p">[</span><span class="n">quotient_number</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="c1">#else: //seems not reachable.</span>
+                <span class="c1">#    numeral = tens[quotient_number-1]</span>
+            <span class="k">elif</span> <span class="n">number</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+                <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;teens_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">number</span><span class="o">-</span><span class="mi">10</span><span class="p">))</span>
+                <span class="n">residue_number</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">fmod</span><span class="p">(</span><span class="n">number</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">teen_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">number</span> <span class="o">-</span> <span class="mi">10</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">residue_number</span> <span class="o">&gt;</span> <span class="mf">1e-30</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">teens</span><span class="p">[</span><span class="n">teen_number</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">num2tamilstr</span><span class="p">(</span><span class="n">residue_number</span><span class="p">,</span><span class="n">filenames</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">teens</span><span class="p">[</span><span class="n">teen_number</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span>
+            <span class="k">if</span> <span class="n">residue_number</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+                <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="s2">&quot;tens_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">quotient_number</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span>
+                <span class="n">numeral</span> <span class="o">=</span> <span class="n">tens</span><span class="p">[</span><span class="n">quotient_number</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">residue_number</span> <span class="ow">in</span> <span class="n">tween</span><span class="p">:</span>
+                    <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="s2">&quot;tens_prefix_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">quotient_number</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>
+                    <span class="n">numeral</span> <span class="o">=</span> <span class="n">tens_prefix</span><span class="p">[</span><span class="n">quotient_number</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="n">tensSpecial</span><span class="o">=</span><span class="s1">&#39;SPECIAL&#39;</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">quotient_number</span><span class="o">==</span><span class="mi">9</span><span class="p">):</span>
+                        <span class="n">tensSpecial</span> <span class="o">=</span> <span class="s1">&#39;NINES&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="s2">&quot;tens_prefix_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">quotient_number</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>
+                    <span class="n">numeral</span> <span class="o">=</span> <span class="n">tens_full_prefix</span><span class="p">[</span><span class="n">quotient_number</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span>
+        <span class="k">elif</span> <span class="n">n_base</span> <span class="o">==</span> <span class="n">n_hundred</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">residue_number</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;hundreds_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">quotient_number</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">hundreds</span><span class="p">[</span><span class="n">quotient_number</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span>
+            <span class="k">if</span> <span class="n">residue_number</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+                <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="s2">&quot;hundreds_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">quotient_number</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span>
+                <span class="n">numeral</span> <span class="o">=</span> <span class="n">hundreds</span><span class="p">[</span><span class="n">quotient_number</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;hundreds_suffix_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">quotient_number</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+                <span class="n">numeral</span> <span class="o">=</span> <span class="n">hundreds_suffix</span><span class="p">[</span><span class="n">quotient_number</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="n">quotient_number</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">):</span>
+                <span class="k">if</span> <span class="n">n_base</span> <span class="o">==</span> <span class="n">n_thousand</span><span class="p">:</span>
+                    <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;one_thousand_prefix&quot;</span><span class="p">)</span>
+                    <span class="n">numeral</span> <span class="o">=</span> <span class="n">one_thousand_prefix</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;one_prefix&quot;</span><span class="p">)</span>
+                    <span class="n">numeral</span> <span class="o">=</span> <span class="n">one_prefix</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">numeral</span> <span class="o">=</span> <span class="n">num2tamilstr</span><span class="p">(</span> <span class="n">quotient_number</span><span class="p">,</span> <span class="n">filenames</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_base</span> <span class="o">&gt;=</span> <span class="n">n_thousand</span><span class="p">:</span>
+            <span class="n">suffix</span> <span class="o">=</span> <span class="n">suffix_base</span><span class="p">[</span><span class="n">n_base</span><span class="p">][</span><span class="n">long</span><span class="p">(</span><span class="n">residue_number</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)]</span>
+            <span class="n">suffix_filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">suffix_file_map</span><span class="p">[</span><span class="n">n_base</span><span class="p">],</span><span class="n">long</span><span class="p">(</span><span class="n">residue_number</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">residue_number</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">suffix_filename</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">numeral</span> <span class="o">+</span> <span class="sa">u</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">suffix</span><span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span>
+            <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">suffix_filename</span><span class="p">)</span>
+            <span class="n">numeral</span> <span class="o">=</span> <span class="n">numeral</span> <span class="o">+</span> <span class="sa">u</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">suffix</span><span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span>
+        <span class="n">residue_numeral</span> <span class="o">=</span> <span class="n">num2tamilstr</span><span class="p">(</span> <span class="n">residue_number</span><span class="p">,</span> <span class="n">filenames</span><span class="p">,</span> <span class="n">tensSpecial</span><span class="p">)</span>
+        <span class="c1">#return numeral+u&#39; &#39;+residue_numeral</span>
+        <span class="k">return</span> <span class="n">numeral</span><span class="o">+</span><span class="n">residue_numeral</span>
+    <span class="c1"># number has to be zero</span>
+    <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;units_0&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">units</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="num2tamilstr_american"><a class="viewcode-back" href="../../tamil.html#tamil.numeral.num2tamilstr_american">[docs]</a><span class="k">def</span> <span class="nf">num2tamilstr_american</span><span class="p">(</span> <span class="o">*</span><span class="n">args</span> <span class="p">):</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot; work till 1000 trillion  - 1 - i.e  = 1e12*1e3 - 1.</span>
+<span class="sd">        turn number into a numeral, American style. Fractions upto 1e-30. &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span> <span class="nb">filter</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">T</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">number</span><span class="p">,</span> <span class="n">T</span><span class="p">),</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unicode</span><span class="p">,</span> <span class="n">long</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">number</span><span class="p">,</span><span class="nb">complex</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;num2tamilstr_american input has to be long or integer&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">long</span><span class="p">(</span><span class="mf">1e15</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;num2tamilstr input is too large&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">u</span><span class="s2">&quot;- &quot;</span><span class="o">+</span><span class="n">num2tamilstr_american</span><span class="p">(</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="p">)</span>
+
+    <span class="n">units</span> <span class="o">=</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;பூஜ்ஜியம்&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ஒன்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;இரண்டு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;மூன்று&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;நான்கு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ஐந்து&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ஆறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ஏழு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எட்டு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;ஒன்பது&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;பத்து&#39;</span><span class="p">)</span> <span class="c1"># 0-10</span>
+    <span class="n">hundreds</span> <span class="o">=</span> <span class="p">(</span> <span class="sa">u</span><span class="s1">&#39;நூறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;இருநூறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;முன்னூறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;நாநூறு&#39;</span><span class="p">,</span><span class="sa">u</span><span class="s1">&#39;ஐநூறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;அறுநூறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எழுநூறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;எண்ணூறு&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;தொள்ளாயிரம்&#39;</span><span class="p">)</span> <span class="c1">#100 - 900</span>
+
+    <span class="n">one_thousand_prefix</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;ஓர்&#39;</span>
+    <span class="n">thousands</span> <span class="o">=</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;ஆயிரம்&#39;</span><span class="p">,</span><span class="sa">u</span><span class="s1">&#39;ஆயிரத்து&#39;</span><span class="p">)</span>
+
+    <span class="n">one_prefix</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;ஒரு&#39;</span>
+    <span class="n">mil</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;மில்லியன்&#39;</span>
+    <span class="n">million</span> <span class="o">=</span> <span class="p">(</span><span class="n">mil</span><span class="p">,</span><span class="n">mil</span><span class="p">)</span>
+
+    <span class="n">bil</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;பில்லியன்&#39;</span>
+    <span class="n">billion</span> <span class="o">=</span> <span class="p">(</span><span class="n">bil</span><span class="p">,</span><span class="n">bil</span><span class="p">)</span>
+
+    <span class="n">tril</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;டிரில்லியன்&#39;</span>
+    <span class="n">trillion</span> <span class="o">=</span> <span class="p">(</span><span class="n">tril</span><span class="p">,</span><span class="n">tril</span><span class="p">)</span>
+
+    <span class="n">n_one</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">n_ten</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">n_hundred</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">n_thousand</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">n_million</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">*</span><span class="n">n_thousand</span>
+    <span class="n">n_billion</span> <span class="o">=</span> <span class="n">long</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="n">n_million</span><span class="p">)</span>
+    <span class="n">n_trillion</span> <span class="o">=</span> <span class="n">long</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="n">n_billion</span><span class="p">)</span>
+
+    <span class="n">suffix_base</span> <span class="o">=</span> <span class="p">{</span> <span class="n">n_trillion</span><span class="p">:</span> <span class="n">trillion</span><span class="p">,</span>
+                    <span class="n">n_billion</span> <span class="p">:</span> <span class="n">billion</span><span class="p">,</span>
+                    <span class="n">n_million</span> <span class="p">:</span> <span class="n">million</span><span class="p">,</span>
+                    <span class="n">n_thousand</span> <span class="p">:</span> <span class="n">thousands</span><span class="p">}</span>
+
+    <span class="n">num_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">n_trillion</span> <span class="p">:</span> <span class="p">[</span><span class="n">one_prefix</span><span class="p">,</span><span class="n">trillion</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+               <span class="n">n_billion</span> <span class="p">:</span> <span class="p">[</span><span class="n">one_prefix</span><span class="p">,</span><span class="n">billion</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+               <span class="n">n_million</span>  <span class="p">:</span> <span class="p">[</span><span class="n">one_prefix</span><span class="p">,</span><span class="n">million</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+               <span class="n">n_thousand</span> <span class="p">:</span> <span class="p">[</span><span class="n">one_thousand_prefix</span><span class="p">,</span> <span class="n">thousands</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+               <span class="n">n_hundred</span> <span class="p">:</span> <span class="p">[</span><span class="n">hundreds</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="c1">#special</span>
+               <span class="n">n_ten</span> <span class="p">:</span> <span class="p">[</span><span class="n">units</span><span class="p">[</span><span class="mi">10</span><span class="p">]],</span>
+               <span class="n">n_one</span> <span class="p">:</span> <span class="p">[</span><span class="n">units</span><span class="p">[</span><span class="mi">1</span><span class="p">]]}</span>
+
+    <span class="n">all_bases</span> <span class="o">=</span> <span class="p">[</span><span class="n">n_trillion</span><span class="p">,</span><span class="n">n_billion</span><span class="p">,</span> <span class="n">n_million</span><span class="p">,</span> <span class="n">n_thousand</span><span class="p">,</span> <span class="n">n_hundred</span><span class="p">,</span> <span class="n">n_ten</span><span class="p">,</span><span class="n">n_one</span><span class="p">]</span>
+    <span class="n">allowed_bases</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">base</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">base</span><span class="p">,</span> <span class="n">all_bases</span> <span class="p">))</span>
+
+    <span class="c1"># handle fractional parts</span>
+    <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="ow">and</span> <span class="nb">float</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mf">1000.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">num2tamilstr</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">number</span><span class="p">,</span><span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">number</span><span class="p">,</span><span class="n">unicode</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;&quot;</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">is_negative</span> <span class="o">=</span> <span class="n">number</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-&quot;</span>
+        <span class="k">if</span>  <span class="n">is_negative</span><span class="p">:</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="n">number</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">frac_part</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">number</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">rat_part</span><span class="p">,</span><span class="n">frac_part</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+            <span class="n">frac_part</span> <span class="o">=</span> <span class="n">num2tamilstr_american</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;0.&quot;</span><span class="o">+</span><span class="n">frac_part</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rat_part</span> <span class="o">=</span> <span class="n">number</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rat_part</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">num2tamilstr_american</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">rat_part</span><span class="p">))</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span><span class="sa">u</span><span class="s2">&quot; &quot;</span><span class="o">+</span> <span class="n">frac_part</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">allowed_bases</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">n_base</span> <span class="o">=</span> <span class="n">allowed_bases</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="n">n_base</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">u</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">num_map</span><span class="p">[</span><span class="n">n_base</span><span class="p">])</span>
+        <span class="n">quotient_number</span> <span class="o">=</span> <span class="n">long</span><span class="p">(</span> <span class="n">number</span><span class="o">/</span><span class="n">n_base</span> <span class="p">)</span>
+        <span class="n">residue_number</span> <span class="o">=</span> <span class="n">number</span> <span class="o">-</span> <span class="n">n_base</span><span class="o">*</span><span class="n">quotient_number</span>
+
+        <span class="k">if</span> <span class="n">n_base</span> <span class="o">&lt;</span> <span class="n">n_thousand</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;This can never happen&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="n">quotient_number</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">):</span>
+                <span class="k">if</span> <span class="n">n_base</span> <span class="o">==</span> <span class="n">n_thousand</span><span class="p">:</span>
+                    <span class="n">numeral</span> <span class="o">=</span> <span class="n">one_thousand_prefix</span><span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">numeral</span> <span class="o">=</span> <span class="n">one_prefix</span><span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">numeral</span> <span class="o">=</span> <span class="n">num2tamilstr</span><span class="p">(</span> <span class="n">quotient_number</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_base</span> <span class="o">&gt;=</span> <span class="n">n_thousand</span><span class="p">:</span>
+            <span class="n">suffix</span> <span class="o">=</span> <span class="n">suffix_base</span><span class="p">[</span><span class="n">n_base</span><span class="p">][</span><span class="n">long</span><span class="p">(</span><span class="n">residue_number</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="n">residue_number</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">numeral</span> <span class="o">+</span> <span class="sa">u</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">suffix</span>
+            <span class="n">numeral</span> <span class="o">=</span> <span class="n">numeral</span> <span class="o">+</span> <span class="sa">u</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">suffix</span>
+        <span class="n">residue_numeral</span> <span class="o">=</span> <span class="n">num2tamilstr_american</span><span class="p">(</span> <span class="n">residue_number</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="n">numeral</span><span class="o">+</span><span class="sa">u</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">residue_numeral</span>
+
+    <span class="c1"># number has to be zero</span>
+    <span class="k">return</span> <span class="n">units</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

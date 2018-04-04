@@ -1,0 +1,7 @@
+runwebspell module
+==================
+
+.. automodule:: runwebspell
+    :members:
+    :undoc-members:
+    :show-inheritance:
