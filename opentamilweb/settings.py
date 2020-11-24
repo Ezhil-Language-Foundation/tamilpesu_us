@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'USA'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = not True
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -129,6 +129,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "opentamilapp/static/"),
+)
 
 #can be 'open-tamil.herokuapp.com' or 'tamilpesu.us' etc.
 EXAMPLE_SITE_URL=u'tamilpesu.us'
