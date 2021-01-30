@@ -1,2 +1,2 @@
-django==2.2.17
-open-tamil
+django==1.11.29
+open-tamil>=0.9
