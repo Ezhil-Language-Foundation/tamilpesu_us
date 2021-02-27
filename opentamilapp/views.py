@@ -14,7 +14,7 @@ import json
 import random
 from tamil.utf8 import get_letters
 from tamil import wordutils
-from spell import Speller, LoadDictionary
+from spell import Speller, LoadDictionary, ASpell
 from solthiruthi.datastore import TamilTrie, DTrie, Queue
 from solthiruthi.Ezhimai import *
 from solthiruthi.resources import DICTIONARY_DATA_FILES
@@ -45,6 +45,35 @@ except Exception as ioe:
 from tamilinayavaani import SpellChecker, SpellCheckerResult
 from django.views.decorators.csrf import csrf_exempt
 
+def aspell_spell_check(request):
+    return render(request,"aspell_spell_check.html")
+
+@csrf_exempt
+def aspell_spellchecker(request):
+    if request.method == 'POST':
+        lang = request.POST['lang']
+        text = request.POST['text']
+        if lang != "ta_IN":
+            json_string = json.dumps({'error':'Language '+lang+' is not supported; only takes Tamil (code ta_IN))'})
+            response = HttpResponse(json_string, content_type="application/json; charset=utf-8")
+            return response
+
+        lang = "TA"
+        result_dict = {'words':{}}
+
+        result = ASpell().spellcheck(str(text))
+        for word,suggl in result.items():
+            result_dict['words'][word] = suggl
+        json_string = json.dumps(result_dict)
+        response = HttpResponse(json_string, content_type="application/json; charset=utf-8")
+        return response
+
+    assert request.method == "GET"
+    text = request.GET['text']
+    suggs = ASpell().spellcheck(str(text))
+    return HttpResponse("RPC interface for TinyMCE Spell Checker!"+text+':'+str(suggs),content_type="plain/text; charset=utf-8")    
+    #return Http404("unknown request; resource not found. Use POST request!")
+    
 def tamilinayavaani_spell_check(request):
     return render(request,"tamilinayavaani_spell_check.html")
 
