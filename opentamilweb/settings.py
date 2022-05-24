@@ -123,9 +123,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = "/static/"
-CURRDIR = os.path.dirname(os.path.abspath(__file__))
-APPDIR = os.path.dirname(CURRDIR)
-STATIC_ROOT = os.path.join(APPDIR,'opentamilapp','static')
 TEXTRANDOMIZER_FILES = []
 # can be 'open-tamil.herokuapp.com' or 'tamilpesu.us' etc.
 EXAMPLE_SITE_URL = "tamilpesu.us"
