@@ -127,3 +127,4 @@ TEXTRANDOMIZER_FILES = []
 # can be 'open-tamil.herokuapp.com' or 'tamilpesu.us' etc.
 EXAMPLE_SITE_URL = "tamilpesu.us"
 CONTACT_EMAIL = "ezhillang@gmail.com"
+STATIC_ROOT = "."
