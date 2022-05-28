@@ -23,6 +23,10 @@ RUN pip install -r requirements.txt
 # Copy the rest of the code.
 COPY . /app/
 
-RUN python /app/manage.py migrate
+# Prepare Staticfiles and Database
+RUN python /app/manage.py collectstatic --no-input
+RUN python /app/manage.py migrate --no-input
+
+# Serve
 EXPOSE 5000
 ENTRYPOINT ["python","/app/manage.py","runserver","0.0.0.0:5000"]

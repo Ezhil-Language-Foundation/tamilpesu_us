@@ -24,7 +24,7 @@ SECRET_KEY = "COVID19s3cr3tk3y"
 APP_KEY = SECRET_KEY.upper()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =  False
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
