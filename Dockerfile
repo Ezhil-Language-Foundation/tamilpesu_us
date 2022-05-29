@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM ubuntu:latest
 
 # These two environment variables prevent __pycache__/ files.
 ENV PYTHONUNBUFFERED 1
@@ -19,6 +19,7 @@ RUN pip install --upgrade pip
 
 # Install the requirements.
 RUN pip install -r requirements.txt
+RUN apt-get install aspell
 
 # Copy the rest of the code.
 COPY . /app/
