@@ -14,7 +14,11 @@ WORKDIR /app
 # Copy the requirements.txt file.
 COPY ./requirements.txt /app/
 
-RUN apt-get install python3 python3-pip
+RUN apt-get update \
+  && apt-get install -y python3-pip python3-dev \
+  && cd /usr/local/bin \
+  && ln -s /usr/bin/python3 python \
+  && pip3 install --upgrade pip
 # Upgrade pip
 RUN pip install --upgrade pip
 
