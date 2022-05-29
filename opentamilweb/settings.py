@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import secrets
 from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -20,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "COVID19s3cr3tk3y"
+SECRET_KEY = os.environ.get('SECRET_KEY',secrets.token_hex(48))
 APP_KEY = SECRET_KEY.upper()
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -125,6 +126,8 @@ USE_TZ = True
 STATIC_URL = "/static/"
 TEXTRANDOMIZER_FILES = []
 # can be 'open-tamil.herokuapp.com' or 'tamilpesu.us' etc.
+CURRDIR = os.path.dirname(os.path.abspath(__file__))
+APPDIR = os.path.dirname(CURRDIR)
 EXAMPLE_SITE_URL = "tamilpesu.us"
 CONTACT_EMAIL = "ezhillang@gmail.com"
-STATIC_ROOT = "."
+STATIC_ROOT = os.path.join(APPDIR,'opentamilapp','static')
