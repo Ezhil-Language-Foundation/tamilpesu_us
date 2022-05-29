@@ -24,7 +24,7 @@ RUN pip install --upgrade pip
 
 # Install the requirements.
 RUN pip install -r requirements.txt
-RUN apt-get install -y aspell
+RUN apt-get install -y aspell aspell-ta
 
 
 # Copy the rest of the code.
