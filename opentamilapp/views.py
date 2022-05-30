@@ -71,9 +71,9 @@ def aspell_spellchecker(request):
     assert request.method == "GET"
     text = request.GET['text']
     suggs = ASpell().spellcheck(str(text))
-    return HttpResponse("RPC interface for TinyMCE Spell Checker!"+text+':'+str(suggs),content_type="plain/text; charset=utf-8")    
+    return HttpResponse("RPC interface for TinyMCE Spell Checker!"+text+':'+str(suggs),content_type="plain/text; charset=utf-8")
     #return Http404("unknown request; resource not found. Use POST request!")
-    
+
 def tamilinayavaani_spell_check(request):
     return render(request,"tamilinayavaani_spell_check.html")
 
@@ -110,7 +110,7 @@ def tamilinayavaani_spellchecker(request):
         json_string = json.dumps(result_dict)
         response = HttpResponse(json_string, content_type="application/json; charset=utf-8")
         return response
-    
+
     assert request.method == "GET"
     text = request.GET['text']
     ok,suggs = SpellChecker.REST_interface(str(text))
@@ -210,9 +210,12 @@ def keech(request, k1):
 
 @csrf_exempt
 def call_sandhi_check(request):
-    k1 = html.escape(
-        request.GET.get("tamiltext", "அங்குக் கண்டான் அந்த பையன் எத்தனை பழங்கள் ")
-    )
+    if request.method == "POST":
+        k1 = html.escape(request.POST.get("tamiltext","சரியான உள்ளீடு கிடைக்கவில்லை"))
+    else:
+        k1 = html.escape(
+            request.GET.get("tamiltext", "அங்குக் கண்டான் அந்த பையன் எத்தனை பழங்கள் ")
+        )
     dic = {}
     temp = ""
     dic["old"] = k1
