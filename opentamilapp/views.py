@@ -48,6 +48,8 @@ except Exception as ioe:
 from tamilinayavaani import SpellChecker, SpellCheckerResult
 from django.views.decorators.csrf import csrf_exempt
 
+from dateutil import parser as dateutil_parser
+
 def aspell_spell_check(request):
     return render(request,"aspell_spell_check.html")
 
@@ -486,9 +488,20 @@ def tastemmer(request, use_json=False):
         request, "stemmer.html", {"text_output": data, "text_input": text_input}
     )
 
+@csrf_exempt
 def tamil_date(request):
     n = datetime.now()
-    d = ta_datetime(n.year,n.month,n.day,n.hour,n.minute)
+    default = True
+    if request.method == 'POST':
+        default = False
+        value = request.POST.get("meeting-time")
+        if value:
+            n = dateutil_parser.parse(value)
+    d = ta_datetime(n.year, n.month, n.day, n.hour, n.minute)
     tamil_date = d.strftime_ta("%a %d, %b %Y")
     tamil_time = d.strftime_ta("%A (%d %b %Y) %p %I:%M")
-    return render(request,"date.html",{"date":tamil_date,"time":tamil_time})
+    return render(request,"date.html",{"date":tamil_date,
+                                       "time":tamil_time,
+                                       "time_now":n.ctime(),
+                                       "default":default
+                                       })

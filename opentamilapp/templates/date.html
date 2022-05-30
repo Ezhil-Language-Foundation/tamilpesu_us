@@ -8,10 +8,38 @@
 <div class="page-header">
   <h1>{% trans "Tamil date and time" %}</h1>
 </div>
+{% if default %}
 <div>
   Server இயங்கும் இடத்தில் தற்போது நேரம் : {{time}}
 </div>
 <div>
   அவ்விடத்தில் இப்போது நாள் : {{date}}
 </div>
+{% else %}
+<div>
+  நீங்கள் தேர்ந்தெடுத்த நேரம் : {{time}}
+</div>
+<div>
+  நீங்கள் தேர்ந்தெடுத்த நாள் : {{date}}
+</div>
+{% endif %}
+<style>
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+<form method="POST">
+  <label for="meeting-time"> ஏதேனும் ஒரு நேரம் தேர்ந்தெடுங்கள்:</label>
+
+  <input type="datetime-local" id="meeting-time"
+         name="meeting-time" value="{{time_now}}"
+         min="1900-01-07T00:00" max="2100-01-14T00:00" /><br/>
+  <input type="submit"  id="btn-submit" value="அனுப்பு" class="btn btn-success" action="submit"/>
+</form>
 {% endblock %}
