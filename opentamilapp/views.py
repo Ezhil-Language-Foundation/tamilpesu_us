@@ -3,6 +3,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
+
+from datetime import datetime
 import tamil
 import codecs
 import sys
@@ -13,6 +15,7 @@ import html
 import json
 import random
 from tamil.utf8 import get_letters
+from tamil.date import datetime as ta_datetime
 from tamil import wordutils
 from spell import Speller, LoadDictionary, ASpell
 from solthiruthi.datastore import TamilTrie, DTrie, Queue
@@ -482,3 +485,10 @@ def tastemmer(request, use_json=False):
     return render(
         request, "stemmer.html", {"text_output": data, "text_input": text_input}
     )
+
+def tamil_date(request):
+    n = datetime.now()
+    d = ta_datetime(n.year,n.month,n.day,n.hour,n.minute)
+    tamil_date = d.strftime_ta("%a %d, %b %Y")
+    tamil_time = d.strftime_ta("%A (%d %b %Y) %p %I:%M")
+    return render(request,"date.html",{"date":tamil_date,"time":tamil_time})

@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+{% load i18n %}
+{% block title %}Date{% endblock %}
+
+{% block content %}
+<section id="translite">
+<div class="col-sm-9">
+<div class="page-header">
+  <h1>{% trans "Tamil date and time" %}</h1>
+</div>
+<div>
+  Server இயங்கும் இடத்தில் தற்போது நேரம் : {{time}}
+</div>
+<div>
+  அவ்விடத்தில் இப்போது நாள் : {{date}}
+</div>
+{% endblock %}

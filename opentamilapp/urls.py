@@ -61,4 +61,5 @@ urlpatterns = [
     url(r"^stemmer/json/$", lambda x: tastemmer(x, use_json=True), name="json_stemmer"),
     url(r"version/",version,name="version"),
     url(r"^classify-word/$", classify_word, name="classify_word"),
-    url(r"^get-classify/$", get_classify, name="classifier")]
+    url(r"^get-classify/$", get_classify, name="classifier"),
+    url(r"^date/$",tamil_date,name="tamil_date")]
