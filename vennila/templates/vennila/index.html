@@ -1,0 +1,68 @@
+{% extends "opentamilapp/main.html" %}
+{% block title %}Tamil Number{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>N-gram</h1>
+</div>
+<div>
+<center>
+<input type="text" name="word" style="width:25%;" id="txt4" placeholder="Enter the word"/><br>
+<button id="btn4" class="btn btn-success">submit</button>
+</div>
+<div id="progress" class="alert alert-info silpa-hide"></div>
+<p id="disp" class='important'>
+</p>
+</center>
+<script type="text/javascript">
+  function toKg(lbs_wt) {
+    return lbs_wt*0.453592;
+  }
+  function toLBS(kg_wt) {
+    return kg_wt*2.20462;
+  }
+
+  var Earth = {
+    'g':9.8, /* m/s^2 */
+  };
+  var Moon = {
+  'g':1.62, /*m/s^2*/
+  };
+
+  function weightOnMoon(refID,dstID) {
+    var wtOnEarth = $(refID).val();
+    var wtOnMoon = (wtOnEarth/Earth['g'])*Moon['g']
+    $(dstID).val(wtOnMoon);
+  }
+
+  function weightOnEarth(refID,dstID) {
+    var wtOnMoon = $(refID).val();
+    var wtOnEarth = (wtOnMoon/Moon['g'])*Earth['g']
+    $(dstID).val(wtOnEarth);
+  }
+});
+</script>
+
+<h2>Weight on Moon</h2>
+<form>
+  <label for="kgs">:</label><br>
+  <label for="fname">Weight on Earth:</label><br>
+  <input type="text" id="wearth" name="wearth"><br>
+  <label for="lname">Weight on Moon:</label><br>
+  <input type="text" id="wmoon" name="wmoon"><br><br>
+  <input type="button" onclick="weightOnMoon('wearth','wmoon')" value="Calculate">
+</form>
+
+<h2>Weight on Earth</h2>
+<form>
+  <label for="kgs">:</label><br>
+  <label for="lname">Weight on Moon:</label><br>
+  <input type="text" id="wmoon2" name="wmoon2"><br><br>
+  <label for="fname">Weight on Earth:</label><br>
+  <input type="text" id="wearth2" name="wearth2"><br>
+
+  <input type="button" onclick="weightOnEarth('wmoon2','wearth2')" value="Calculate">
+</form>
+
+{% endblock %}
+

@@ -51,7 +51,7 @@ from django.views.decorators.csrf import csrf_exempt
 from dateutil import parser as dateutil_parser
 
 def aspell_spell_check(request):
-    return render(request,"aspell_spell_check.html")
+    return render(request,"opentamilapp/aspell_spell_check.html")
 
 @csrf_exempt
 def aspell_spellchecker(request):
@@ -80,7 +80,7 @@ def aspell_spellchecker(request):
     #return Http404("unknown request; resource not found. Use POST request!")
 
 def tamilinayavaani_spell_check(request):
-    return render(request,"tamilinayavaani_spell_check.html")
+    return render(request,"opentamilapp/tamilinayavaani_spell_check.html")
 
 @csrf_exempt
 def tamilinayavaani_spellchecker(request):
@@ -122,60 +122,60 @@ def tamilinayavaani_spellchecker(request):
     return HttpResponse("RPC interface for TinyMCE Spell Checker!"+text+':'+str(suggs)+':'+str(ok),content_type="plain/text; charset=utf-8")
 
 def index(request):
-    return render(request, "first.html")
+    return render(request,"opentamilapp/first.html")
 
 def version(request):
-    return render(request,"version.html",{"VERSION":tamil.VERSION})
+    return render(request,"opentamilapp/version.html",{"VERSION":tamil.VERSION})
 
 def vaypaadu(request):
-    return render(request, "vaypaadu.html")
+    return render(request,"opentamilapp/vaypaadu.html")
 
 def trans(request):
-    return render(request, "translite.html")
+    return render(request,"opentamilapp/translite.html")
 
 
 def uni(request):
-    return render(request, "unicode.html")
+    return render(request,"opentamilapp/unicode.html")
 
 
 def keechu(request):
-    return render(request, "keechu.html")
+    return render(request,"opentamilapp/keechu.html")
 
 
 def spl(request):
-    return render(request, "spell.html")
+    return render(request,"opentamilapp/spell.html")
 
 
 def rev(request):
-    return render(request, "reverse.html")
+    return render(request,"opentamilapp/reverse.html")
 
 
 def morse_code(request):
-    return render(request, "morse.html")
+    return render(request,"opentamilapp/morse.html")
 
 
 def num(request):
-    return render(request, "number.html")
+    return render(request,"opentamilapp/number.html")
 
 
 def anag(request):
-    return render(request, "anagram.html")
+    return render(request,"opentamilapp/anagram.html")
 
 
 def unig(request):
-    return render(request, "unigram.html")
+    return render(request,"opentamilapp/unigram.html")
 
 
 def ngra(request):
-    return render(request, "ngram.html")
+    return render(request,"opentamilapp/ngram.html")
 
 
 def sandhi_check(request):
-    return render(request, "sandhi_check.html")
+    return render(request,"opentamilapp/sandhi_check.html")
 
 
 def get_classify(request):
-    return render(request, "classifier.html")
+    return render(request,"opentamilapp/classifier.html")
 
 
 def numstr(request, num):
@@ -317,19 +317,19 @@ def morse(request, direction="encode", word=""):
 
 def tts_demo(request):
     if request.method == "GET":
-        return render(request, "tts_demo.html", {"solution": ""})
+        return render(request,"opentamilapp/tts_demo.html", {"solution": ""})
     assert request.method == "POST"
     words = request.POST.get("words", "")
     mp3path = os.path.join("static", "audio_%d.mp3" % random.randint(0, 1000000))
     static_path = os.path.join(os.path.split(__file__)[0], mp3path)
     tts = ConcatennativeTTS(words, static_path)
     tts.run()
-    return render(request, "tts_demo.html", {"solution": mp3path})
+    return render(request,"opentamilapp/tts_demo.html", {"solution": mp3path})
 
 
 def xword(request):
     if request.method == "GET":
-        return render(request, "xword.html", {"solution": ""})
+        return render(request,"opentamilapp/xword.html", {"solution": ""})
     assert request.method == "POST"
     words = request.POST.get("words", [])
     wordlist = list(filter(len, [w.strip() for w in re.split("\n+", words)]))
@@ -383,7 +383,7 @@ def classify_word(request):
     return response
 
 def minnal(request):
-    return render(request, "minnal.html", {})
+    return render(request,"opentamilapp/minnal.html", {})
 
 def test_minnal(request, word):
     data, _ = tamil_minnal(re.split("\s+|,", word))
@@ -412,7 +412,7 @@ def textrandomizer(request, key=None):
     if not key or key != settings.APP_KEY:
         return Http404("Permission denied")
     request.session["authorized"] = key
-    return render(request, "textrandomizer.html")
+    return render(request,"opentamilapp/textrandomizer.html")
 
 
 def get_n_unique(n, r_range):
@@ -473,7 +473,7 @@ def test_textrandomizer(request, level):
 
 def tastemmer(request, use_json=False):
     if request.method == "GET":
-        return render(request, "stemmer.html", {"text_output": ""})
+        return render(request,"opentamilapp/stemmer.html", {"text_output": ""})
     assert request.method == "POST"
     text_input = request.POST.get("text_input", "")
     words_in = list(filter(len, re.split("\s+", text_input)))
@@ -500,7 +500,7 @@ def tamil_date(request):
     d = ta_datetime(n.year, n.month, n.day, n.hour, n.minute)
     tamil_date = d.strftime_ta("%a %d, %b %Y")
     tamil_time = d.strftime_ta("%A (%d %b %Y) %p %I:%M")
-    return render(request,"date.html",{"date":tamil_date,
+    return render(request,"opentamilapp/date.html",{"date":tamil_date,
                                        "time":tamil_time,
                                        "time_now":n.ctime(),
                                        "default":default
