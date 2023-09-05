@@ -3,17 +3,9 @@
 
 {% block content %}
 <div class="page-header">
-    <h1>N-gram</h1>
+    <h1>வெண்ணிலா - நிலவின் பௌதிக விதிகளில் ஒரு அலசல்</h1>
 </div>
 <div>
-<center>
-<input type="text" name="word" style="width:25%;" id="txt4" placeholder="Enter the word"/><br>
-<button id="btn4" class="btn btn-success">submit</button>
-</div>
-<div id="progress" class="alert alert-info silpa-hide"></div>
-<p id="disp" class='important'>
-</p>
-</center>
 <script type="text/javascript">
   function toKg(lbs_wt) {
     return lbs_wt*0.453592;
@@ -30,17 +22,18 @@
   };
 
   function weightOnMoon(refID,dstID) {
-    var wtOnEarth = $(refID).val();
+    var wtOnEarth = parseFloat($(refID).val());
     var wtOnMoon = (wtOnEarth/Earth['g'])*Moon['g']
     $(dstID).val(wtOnMoon);
+    window.alert('Weight on Moon = '+String(wtOnMoon));
   }
 
   function weightOnEarth(refID,dstID) {
-    var wtOnMoon = $(refID).val();
+    var wtOnMoon = parseFloat($(refID).val());
     var wtOnEarth = (wtOnMoon/Moon['g'])*Earth['g']
     $(dstID).val(wtOnEarth);
+    window.alert('Weight on Earth = '+String(wtOnEarth));
   }
-});
 </script>
 
 <h2>Weight on Moon</h2>
@@ -50,7 +43,7 @@
   <input type="text" id="wearth" name="wearth"><br>
   <label for="lname">Weight on Moon:</label><br>
   <input type="text" id="wmoon" name="wmoon"><br><br>
-  <input type="button" onclick="weightOnMoon('wearth','wmoon')" value="Calculate">
+  <input type="button" onclick="weightOnMoon('#wearth','#wmoon')" value="Calculate">
 </form>
 
 <h2>Weight on Earth</h2>
@@ -61,8 +54,17 @@
   <label for="fname">Weight on Earth:</label><br>
   <input type="text" id="wearth2" name="wearth2"><br>
 
-  <input type="button" onclick="weightOnEarth('wmoon2','wearth2')" value="Calculate">
+  <input type="button" onclick="weightOnEarth('#wmoon2','#wearth2')" value="Calculate">
 </form>
-
+<hr />
+  <h3>ISRO and Moon Resources</h3>
+  <ul>
+    <li>Wikipedia <a href="https://en.wikipedia.org/wiki/Moon">Moon resources</a></li>
+    <li>ISRO <a href="https://www.isro.gov.in/Chandrayaan_1.html">Chandrayaan 1 - Lunar Impact Probe</a></li>
+    <li>ISRO <a href="https://www.isro.gov.in/Chandrayaan_2.html">Chandrayaan 2 - Vikram (Crash Lander) &amp; LRO - Lunar Reconnaisance Orbiter</a></li>
+    <li>ISRO <a href="https://www.isro.gov.in/Chandrayaan3.html">Chandrayaan 3 - Vikram (Lander) &amp; Pragyaan (Rover)</a></li>
+    <li>NASA Moon <a href="http://moon.nasa.gov/">NASA Moon</a></li>
+    <li>NASA Moon Landing <a href="https://solarsystem.nasa.gov/news/890/who-has-walked-on-the-moon/">Moon Landing</a></li>
+    <li>Vennila project : <a href="https://github.com/ezhil-Language-Foundation/vennila">Github</a></li>
+  </ul>
 {% endblock %}
-
