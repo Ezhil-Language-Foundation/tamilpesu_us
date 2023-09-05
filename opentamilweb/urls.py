@@ -32,3 +32,7 @@ else:
         # url(r'^admin/', admin.site.urls),
         url(_(r""), include("opentamilapp.urls")),
     )
+    urlpatterns += i18n_patterns(
+        url(_(r"vennila/"), include("vennila.urls")),
+    )
+
