@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY',secrets.token_hex(48))
 APP_KEY = SECRET_KEY.upper()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DJANGO_DEBUG',False)
 
 ALLOWED_HOSTS = ["*"]
 
@@ -77,12 +77,16 @@ WSGI_APPLICATION = "opentamilweb.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    }
+    "default": os.environ.get('DATABASE_URL','postgres://postgres@db/postgres')
 }
+#DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.sqlite3",
+#        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+#    }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
