@@ -15,9 +15,9 @@ Including another URLconf
 """
 import sys
 from django.shortcuts import redirect
-from django.conf.urls import url
+from django.urls import path
 from vennila.views import *
 
 urlpatterns = [
-    url(r"^$", index, name="home"),
+    path("", index, name="home"),
 ]
