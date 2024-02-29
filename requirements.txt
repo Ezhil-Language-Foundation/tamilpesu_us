@@ -1,4 +1,5 @@
 django==4.2.9
+environs[django]==9.5.0
 open-tamil>=1.1
 tamilinayavaani>=0.14
 python-dateutil
