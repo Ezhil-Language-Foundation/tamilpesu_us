@@ -32,7 +32,7 @@ APP_KEY = SECRET_KEY.upper()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG',not False)
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*",".tamilpesu.us"]
 
 # Application definition
 
