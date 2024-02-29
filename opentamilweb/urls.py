@@ -17,6 +17,9 @@ from django.urls import include, path, re_path
 from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import gettext_lazy as _
+from django.conf.urls.static import static
+from django.conf import settings
+
 import sys
 
 if sys.version.find("2.6") >= 0:
@@ -36,3 +39,4 @@ else:
         re_path(_(r"vennila/"), include("vennila.urls")),
     )
 
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

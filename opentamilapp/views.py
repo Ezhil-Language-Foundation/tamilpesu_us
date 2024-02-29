@@ -180,7 +180,7 @@ def get_classify(request):
 
 def numstr(request, num):
     typ = request.GET.get("type")
-    if num.find(".") == -1:
+    if isinstance(num,str) and num.find(".") == -1:
         num = int(num)
     else:
         num = float(num)
