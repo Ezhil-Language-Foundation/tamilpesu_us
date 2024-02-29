@@ -33,7 +33,7 @@ COPY . /app/
 # Prepare Staticfiles and Database
 ENV PYTHONPATH ${PYTHONPATH}:/app/packages/
 RUN python /app/manage.py collectstatic --no-input
-RUN python /app/manage.py migrate --no-input
+#RUN python /app/manage.py migrate --no-input
 
 # Serve
 EXPOSE 5000
