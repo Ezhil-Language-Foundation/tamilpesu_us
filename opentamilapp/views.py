@@ -365,7 +365,7 @@ def summarizer(request):
     )
     return render(
         request,
-        "summarizer.html",
+        "opentamilapp/summarizer.html",
         {
             "text_input": text_input,
             "text_summary": text_summary,
