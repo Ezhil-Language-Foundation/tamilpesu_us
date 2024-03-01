@@ -344,7 +344,7 @@ def xword(request):
 def summarizer(request):
     if request.method == "GET":
         return render(
-            request, "summarizer.html", {"text_input": ""}
+            request, "opentamilapp/summarizer.html", {"text_input": ""}
         )
     assert request.method == "POST"
     text_input = request.POST.get("text_input", "")
@@ -462,7 +462,7 @@ def test_textrandomizer(request, level):
     assert len(questions) == (q + p + j)
     return render(
         request,
-        "textrandomizer.html",
+        "opentamilapp/textrandomizer.html",
         {
             "questions": list(zip(questions, answers)),
             "nilai": nilai,
@@ -485,7 +485,7 @@ def tastemmer(request, use_json=False):
             json_string, content_type="application/json; charset=utf-8"
         )
     return render(
-        request, "stemmer.html", {"text_output": data, "text_input": text_input}
+        request, "opentamilapp/stemmer.html", {"text_output": data, "text_input": text_input}
     )
 
 @csrf_exempt
