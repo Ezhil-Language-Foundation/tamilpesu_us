@@ -33,6 +33,7 @@ APP_KEY = SECRET_KEY.upper()
 DEBUG = os.environ.get('DJANGO_DEBUG',not False)
 
 ALLOWED_HOSTS = ["*",".tamilpesu.us"]
+CSRF_TRUSTED_ORIGINS = ['tamilpesu.us',]
 
 # Application definition
 
@@ -129,8 +130,6 @@ LANGUAGE_CODE = "ta"
 TIME_ZONE = "UTC"
 
 USE_I18N = True
-
-
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
