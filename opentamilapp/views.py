@@ -336,7 +336,7 @@ def xword(request):
     grid, sol = generate_tamil_word_grid(wordlist)
     return render(
         request,
-        "xword.html",
+        "opentamilapp/xword.html",
         {"solution": grid, "wordlist": wordlist},
     )
 
