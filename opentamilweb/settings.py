@@ -33,8 +33,15 @@ APP_KEY = SECRET_KEY.upper()
 DEBUG = os.environ.get('DJANGO_DEBUG',not False)
 
 ALLOWED_HOSTS = ["*",".tamilpesu.us"]
-CSRF_TRUSTED_ORIGINS = ['tamilpesu.us',]
+CSRF_TRUSTED_ORIGINS = ['https://tamilpesu.us',]
+CORS_REPLACE_HTTPS_REFERER = True
 
+CSRF_COOKIE_DOMAIN = 'tamilpesu.us'
+
+CORS_ORIGIN_WHITELIST = (
+    'https://tamilpesu.us/',
+    'tamilpesu.us'
+)
 # Application definition
 
 INSTALLED_APPS = [
