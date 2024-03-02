@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
@@ -36,7 +35,7 @@ from .webuni import unicode_converter
 from tamil.wordutils import minnal as tamil_minnal
 from tamilstemmer import TamilStemmer
 from opentamilweb import settings
-
+from tamil.olini import கணக்கிடு as kanakkidu
 import tamilmorse
 
 try:
@@ -505,3 +504,20 @@ def tamil_date(request):
                                        "time_now":n.ctime(),
                                        "default":default
                                        })
+
+def tamil_calculator(request):
+    default = True
+    n = 0
+    as_tamil = ""
+    value =  "ஓர் ஆயிரம் கழித்தல் ஐந்து பெருக்கல் ( ஒன்பது கூட்டல் ஒன்று )"
+    if request.method == 'POST':
+        default = False
+        value = request.POST.get("kanippaan-varigal")
+        n = kanakkidu(value)
+        as_tamil = tamil.numeral.num2tamilstr_american(n) 
+    return render(request,"opentamilapp/calculator.html",
+                  {"og_value":value,
+                   "n":n,
+                   "tamil_result":as_tamil,
+                   "has_result":not default,
+                   })

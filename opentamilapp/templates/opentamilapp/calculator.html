@@ -1,0 +1,73 @@
+{% extends "opentamilapp/main.html" %}
+{% load i18n %}
+{% block title %}Tamil Number in Words Calculator{% endblock %}
+
+{% block content %}
+<section id="translite">
+<div class="col-sm-9">
+<div class="page-header">
+  <h1>{% trans "Tamil Number in Words Calculator" %}</h1>
+</div>
+<style>
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+{% if has_result %}
+<div>
+  <ul>
+    <li>கணக்கீட்டின் முடிவு </li>
+    <li>
+      <button type="button" class="btn btn-primary">
+	{{og_value}} = <span class="badge badge-light">{{n}}</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="btn btn-primary">
+	{{og_value}} = <span class="badge badge-success">{{tamil_result}}</span>
+      </button>
+    </li>    
+    
+  </ul>
+</div>
+{% endif %}
+
+<form method="POST">
+  {% csrf_token %}
+  <label for="kanippaan-varigal"> ஏதேனும்தயவு செய்து எண்களின் கணக்கீடு கொடுங்கள்</label>
+  <textarea rows="4" cols="50" id="kanippaan-varigal" name="kanippaan-varigal" value="{{og_value}}"></textarea><br/>
+  <input type="submit"  id="btn-submit" value="அனுப்பு" class="btn btn-success" action="submit"/>
+</form>
+<hr/>
+<div>
+  <span>
+உரைவழி தமிழ் எண்களினை கொண்ட கணிதவியல் உள்ளீடை கணக்கிடும் ஒரு கருவி.    
+  </span>
+</div>
+<div>
+  <ol>
+    <li>எ.கா.   ஒன்று கூட்டல் ஒன்று</li>
+    <li>ஒன்று கூட்டல் இரண்டு பெருக்கல் பத்து </li>
+    <li>ஓர் ஆயிரம் கழித்தல் ஐந்து பெருக்கல் ( ஒன்பது கூட்டல் ஒன்று )</li>
+    <li>ஒரு இலட்சம்  பெருக்கல் பத்து  </li>
+   </ol>
+</div>
+<div>
+  <p>The calculator can understand the following operations,</p>
+  <p>
+    "கூட்டல்":+, "கழித்தல்":-,  "பெருக்கல்": *, "வகுத்தல்": /
+  </p>
+</div>
+<div>
+  <a href="https://github.com/Ezhil-Language-Foundation/open-tamil/blob/main/tamil/olini.py">open-tamil Olini Algorithm</a>
+</div>
+<div>
+  <a href="https://github.com/Ezhil-Language-Foundation/open-tamil/blob/main/conference-publications/Generation%20and%20Parsing%20of%20Number%20toWords%20in%20Tamil-INFITT-2020.pdf">A. Muthiah, S. Mahadevan, "Generation and Parsing of Number to Words in Tamil," Tamil Conference INFITT (2020).</a>
+</div>
+{% endblock %}

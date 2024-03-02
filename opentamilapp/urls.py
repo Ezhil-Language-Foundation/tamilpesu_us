@@ -62,4 +62,6 @@ urlpatterns = [
     re_path(r"version/",version,name="version"),
     path("classify-word/", classify_word, name="classify_word"),
     path("get-classify/", get_classify, name="classifier"),
-    path("date/",tamil_date,name="tamil_date")]
+    path("date/",tamil_date,name="tamil_date"),
+    path("calculator/",tamil_calculator,name="tamil_calculator"),
+]
