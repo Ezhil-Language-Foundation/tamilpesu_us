@@ -8,14 +8,54 @@
     <h1>{% trans "Tamil Thirukkural" %}</h1>
 </div>
 <script>
-  $.ready( function() {
-        $( "#accordion" ).accordion();
-  });
+    function gotoKuralDetail() {
+        console.log('goto Kural '+$('#kuralID').val());
+        if ( $('#kuralID').val() < 0 || $('#kuralID').val() > 1330 ) {
+            alert('குறள் எண் 1-இல் இருந்து 1330-வரை இருக்க வேண்டும்');
+        }
+        var newURL = '/kural/detail/'+$('#kuralID').val()+'/';
+        console.log('new URL = '+newURL);
+        window.location.replace(newURL);
+    }
 </script>
+    <div>
+        தமிழ் விக்கிபிடியாவில் <a href="https://ta.wikipedia.org/wiki/திருக்குறள்">திருக்குறள்</a> பற்றி காண்க்.
+    </div>
+    <hr/>
+    <div>
+        <h4>பால் வகைப்படுத்திக் காண்க</h4>
+        <span><a href="/kural/paal/detail/1/">அறத்துப்பால்</a>
+        |<a href="/kural/paal/detail/2/">பொருட்ப்பால்</a>
+        |<a href="/kural/paal/detail/3/">காமத்துப்பால்</a></span>
+    </div>
+    <hr/>
+    <div>
+        <h4>அதிகாரங்கள் வகைப்படுத்திக் காண்க</h4>
+        <span><a href="/kural/">அதிகாரங்க்ள்</a></span>
+    </div>
+    <hr/>
+    <div>
+        <form method="POST" action="/en/kural/detail/0/">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="#kuralID">திருக்குறள் எண்</label>
+            <input type="text" name="kuralID" class="form-control" id="kuralID" aria-describedby="kuralIDHelp" placeholder="குறள் எண்">
+            <small id="kuralIDHelp" class="form-text text-muted">குறள் எண் காண்பி:</small>
+          </div>
+          <button class="btn btn-primary" type="submit" onClick="gotoKuralDetail()">காட்டு</button>
+        </form>
+    </div>
+    <hr/>
 
-    <div id="accordion">
+    {% if paal %}
+    <h4>பால்: {{paal}}</h4>
+    {% endif %}
+    <div>
         {% for name, contents in adhikaram.items %}
-            <h3>{{name}}</h3>
+            {% if paal %}
+            {% else %}
+                <h4>அதிகாரம் {{forloop.counter}}: {{name}}</h4>
+            {% endif %}
             <div>
                 <p>
                     <ol>
