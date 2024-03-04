@@ -48,6 +48,7 @@ from tamilinayavaani import SpellChecker, SpellCheckerResult
 from django.views.decorators.csrf import csrf_exempt
 
 from dateutil import parser as dateutil_parser
+from opentamilapp.kural import get_adhikaram, kurals
 
 def aspell_spell_check(request):
     return render(request,"opentamilapp/aspell_spell_check.html")
@@ -521,3 +522,26 @@ def tamil_calculator(request):
                    "tamil_result":as_tamil,
                    "has_result":not default,
                    })
+
+def tamil_adhikaram_detail(request,num):
+    assert num >= 1 and num <= 133, "only 133 adhikarams are allowed"
+    pass
+
+def tamil_paal_detail(request,num):
+    assert num >= 1 and num <= 3, "only 3 paal categories are allowed"
+    pass
+
+def tamil_kural_detail(request,num):
+    assert num >= 1 and num <= 1330, "only 1330 kurals are known"
+    kural = kurals()[num]
+    adi1, adi2 = kural.ta.split('\n')
+    return render(request, "opentamilapp/kural_detail.html",
+                  {
+                      "kural":kural,
+                      "kuralrow1":adi1,
+                      "kuralrow2":adi2,
+                  })
+
+
+def tamil_kural(request):
+    return render(request,"opentamilapp/kural.html",{"adhikaram":get_adhikaram()})

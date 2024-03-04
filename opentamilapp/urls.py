@@ -64,4 +64,8 @@ urlpatterns = [
     path("get-classify/", get_classify, name="classifier"),
     path("date/",tamil_date,name="tamil_date"),
     path("calculator/",tamil_calculator,name="tamil_calculator"),
+    path("kural/", tamil_kural, name="tamil_kural"),
+    path("kural/detail/<int:num>/", tamil_kural_detail, name="tamil_kural_detail"),
+    path("kural/paal/detail/<int:num>/", tamil_paal_detail, name="tamil_paal_detail"),
+    path("kural/adhikaram/detail/<int:num>/", tamil_adhikaram_detail, name="tamil_adhikaram_detail"),
 ]

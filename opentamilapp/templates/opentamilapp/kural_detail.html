@@ -1,0 +1,41 @@
+{% extends "opentamilapp/main.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %}Tamil Number{% endblock %}
+{% block content %}
+<section id="home">
+<title>{% trans "Tamil Thirukkural number " %} {{kural.no}}</title>
+<div class="page-header">
+<p><a href="/kural/" class="card-link">திருக்குறள்</a> &rightarrow; திருக்குறள் எண் {{kural.no}}</p>
+</div>
+
+<div class="card" style="width: 36rem;">
+  <div class="card-body">
+    <h5 class="card-title"><span>பால்: <b>{{kural.pal}}</b>, அதிகாரம்: <b>{{kural.adhikaram}}</b></span></h5>
+    <h6 class="card-subtitle mb-2 text-muted">திருக்குறள் எண் {{kural.no}}</h6>
+    <p>{{kuralrow1}}<br/>
+        {{kuralrow2}}
+    </p>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#English" aria-expanded="false" aria-controls="English">
+    ஆங்கில மொழிபெயர்ப்பு
+    </button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#EnglishCommentary" aria-expanded="false" aria-controls="EnglishCommentary">
+    தமிழ் உரை
+    </button>
+  </div>
+</div>
+
+<div class="collapse" id="English">
+    <h6>Translation:</h6>
+    <p>
+      {{kural.en}}
+    </p>
+</div>
+
+<div class="collapse" id="EnglishCommentary">
+    <h6>Commentary (உரை):</h6>
+    <p>
+      {{kural.commentary}}
+    </p>
+</div>
+{% endblock %}

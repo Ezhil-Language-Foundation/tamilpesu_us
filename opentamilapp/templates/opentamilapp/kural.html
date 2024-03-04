@@ -1,0 +1,30 @@
+{% extends "opentamilapp/main.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %}Tamil Number{% endblock %}
+{% block content %}
+<section id="home">
+<div class="page-header">
+    <h1>{% trans "Tamil Thirukkural" %}</h1>
+</div>
+<script>
+  $.ready( function() {
+        $( "#accordion" ).accordion();
+  });
+</script>
+
+    <div id="accordion">
+        {% for name, contents in adhikaram.items %}
+            <h3>{{name}}</h3>
+            <div>
+                <p>
+                    <ol>
+                        {% for kural in contents %}
+                            <li><a href='/kural/detail/{{kural.no}}/'>{{kural.ta}}</a></li>
+                        {% endfor %}
+                    </ol>
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
