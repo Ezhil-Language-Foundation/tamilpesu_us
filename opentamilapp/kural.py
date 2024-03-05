@@ -1,7 +1,9 @@
 # (C) 2024, Ezhil Language Foundation
 from kural import Kural
+from kuralgen import get_matching_kural
 from functools import lru_cache
 
+@lru_cache(maxsize=1)
 def kurals():
     return Kural.load_data_base()
 

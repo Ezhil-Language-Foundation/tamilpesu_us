@@ -32,7 +32,6 @@ def get_matching_kural( input_sentence ):
     sen = get_sentence_tokens_after_stopword_removal(input_sentence)
 
     generated = []
-
     loop = 0
 
     while len(generated) < 7:

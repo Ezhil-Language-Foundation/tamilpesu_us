@@ -1,0 +1,38 @@
+{% extends "opentamilapp/main.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %}Tamil Number{% endblock %}
+{% block content %}
+<section id="home">
+<title>{% trans "Tamil Thirukkural-like Generator " %} Venba Generator </title>
+<div class="page-header">
+<p>குறள் உருவாக்குதல்</p>
+</div>
+
+{% if kuralrow1 %}
+<div class="card" style="width: 36rem;">
+  <div class="card-body">
+    <h5 class="card-title"><span>Generate Kural</span></h5>
+    <h6 class="card-subtitle mb-2 text-muted">Mannar Amuthan's Kural-gen library <a href="https://github.com/MannarAmuthan/kural-gen">Github</a></h6>
+    <p>{{kuralrow1}}<br/>
+        {{kuralrow2}}
+    </p>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#English" aria-expanded="false" aria-controls="English">
+    ஆங்கில மொழிபெயர்ப்பு
+    </button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#EnglishCommentary" aria-expanded="false" aria-controls="EnglishCommentary">
+    குறள் உரை
+    </button>
+  </div>
+</div>
+{% else %}
+    <form method="POST">
+        {% csrf_token %}
+        <label for="prompt" title="enter English text prompt">குறள் உருவாக்குவதற்கு ஒரு ஆங்கில சொற்றொடர் ஒன்றைக்குறிப்பிடுக:</label><br/>
+        <textarea rows="10" columns="50" value="enter text:" name="prompt" id="prompt"></textarea><br/>
+        <button type="submit">குறள் உருவாக்கு!</button><br/>
+    </form>
+    <h6 class="card-subtitle mb-2 text-muted">Mannar Amuthan's Kural-gen library <a href="https://github.com/MannarAmuthan/kural-gen">Github</a></h6>
+{% endif %}
+
+{% endblock %}
