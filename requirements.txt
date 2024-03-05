@@ -6,3 +6,4 @@ open-tamil>=1.1
 tamilinayavaani>=0.14
 python-dateutil
 psycopg2-binary
+gensim==4.3.2
