@@ -22,15 +22,17 @@
         தமிழ் விக்கிபிடியாவில் <a href="https://ta.wikipedia.org/wiki/திருக்குறள்">திருக்குறள்</a> பற்றி காண்க்.
     </div>
     <div>
-         முழு திருக்குறள் உரை மதுரை திட்டம் [PM Project Madurai] வழி காண்க <a href="https://www.projectmadurai.org/pm_etexts/utf8/pmuni0001.html">திருக்குறள் உரை</a> காண்க்.
+        முழு திருக்குறள் <a href="https://www.projectmadurai.org/pm_etexts/utf8/pmuni0001.html">முழு உரை மதுரை திட்டம் [PM Project Madurai]</a> வழி காண்க.
     </div>
 
     <hr/>
     <div>
         <h4>பால் வகைப்படுத்திக் காண்க</h4>
-        <span><a href="/kural/paal/detail/1/">அறத்துப்பால்</a>
-        |<a href="/kural/paal/detail/2/">பொருட்ப்பால்</a>
-        |<a href="/kural/paal/detail/3/">காமத்துப்பால்</a></span>
+        <h3>
+            <span><a href="/kural/paal/detail/1/">அறத்துப்பால்</a>
+            &#119070; <a href="/kural/paal/detail/2/">பொருட்ப்பால்</a>
+            &#119070; <a href="/kural/paal/detail/3/">காமத்துப்பால்</a></span>
+        </h3>
     </div>
     <hr/>
     <div>
@@ -56,15 +58,21 @@
     {% endif %}
     <div>
         {% for name, contents in adhikaram.items %}
-            {% if paal %}
-            {% else %}
                 <h4>அதிகாரம் {{forloop.counter}}: {{name}}</h4>
-            {% endif %}
             <div>
                 <p>
                     <ol>
                         {% for kural in contents %}
-                            <li><a href='/kural/detail/{{kural.no}}/'>{{kural.row1}}<br/>{{kural.row2}}</a></li>
+                            {% if forloop.counter0|divisibleby:10 %}
+                                </ol>
+                                <h6>அதிகாரம்: {{kural.adhikaram}}</h6>
+                                <ol>
+                                <li>
+                                    <a href='/kural/detail/{{kural.no}}/'>{{kural.row1}}<br/>{{kural.row2}}</a>
+                                </li>
+                            {% else %}
+                                <li><a href='/kural/detail/{{kural.no}}/'>{{kural.row1}}<br/>{{kural.row2}}</a></li>
+                            {% endif %}
                         {% endfor %}
                     </ol>
                 </p>
