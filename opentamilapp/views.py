@@ -48,7 +48,7 @@ from tamilinayavaani import SpellChecker, SpellCheckerResult
 from django.views.decorators.csrf import csrf_exempt
 
 from dateutil import parser as dateutil_parser
-from opentamilapp.kural import get_adhikaram, kurals, get_pals, get_matching_kural
+from opentamilapp.kuralviews import get_adhikaram, kurals, get_pals, get_matching_kural
 
 def aspell_spell_check(request):
     return render(request,"opentamilapp/aspell_spell_check.html")

@@ -5,7 +5,9 @@ from functools import lru_cache
 
 @lru_cache(maxsize=1)
 def kurals():
-    return Kural.load_data_base()
+    data = Kural.load_data_base()
+    assert len(data) == 1330
+    return data
 
 @lru_cache(maxsize=1)
 def get_pals():
@@ -20,9 +22,9 @@ def get_pals():
 def get_adhikaram():
     d={}
     for a in kurals():
-        d[a.adhikaram] = d.get(a.adhikaram, list())
+        d[a.adhikaram+' '+a.pal] = d.get(a.adhikaram+'_'+a.pal, list())
     for a in kurals():
-        d[a.adhikaram].append(a)
+        d[a.adhikaram+' '+a.pal].append(a)
     l1 = sum(map(len,d.values()))
     l2 = len(kurals())
     assert l1 == l2
