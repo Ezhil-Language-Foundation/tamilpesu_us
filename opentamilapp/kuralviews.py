@@ -3,6 +3,18 @@ from kural import Kural
 from kuralgen import get_matching_kural
 from functools import lru_cache
 
+class KuralWrapper:
+    @property
+    def row1(self):
+        return self.ta.split('\n')[0]
+
+    @property
+    def row2(self):
+        return self.ta.split('\n')[1]
+
+Kural.row1 = KuralWrapper.row1
+Kural.row2 = KuralWrapper.row2
+
 @lru_cache(maxsize=1)
 def kurals():
     data = Kural.load_data_base()
