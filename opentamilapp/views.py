@@ -539,7 +539,7 @@ def tamil_kural_detail(request,num):
         num = int(request.POST.get("kuralID",1))
     assert num >= 1 and num <= 1330, "only 1330 kurals are known"
     kural = kurals()[num-1]
-    adi1, adi2 = kural.ta.split('\n')
+    adi1, adi2 = kural.row1, kural.row2
     return render(request, "opentamilapp/kural_detail.html",
                   {
                       "kural":kural,

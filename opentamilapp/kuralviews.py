@@ -2,15 +2,22 @@
 from kural import Kural
 from kuralgen import get_matching_kural
 from functools import lru_cache
+from tamil.utf8 import is_tamil_unicode, get_letters
+
+def ta_correct(text):
+    correct_text = ''.join(map(lambda x: is_tamil_unicode(x) and x or ' ',get_letters(text)))
+    return correct_text
 
 class KuralWrapper:
     @property
+    @lru_cache(maxsize=1)
     def row1(self):
-        return self.ta.split('\n')[0]
+        return ta_correct(self.ta.split('\n')[0])
 
     @property
+    @lru_cache(maxsize=1)
     def row2(self):
-        return self.ta.split('\n')[1]
+        return ta_correct(self.ta.split('\n')[1])
 
 Kural.row1 = KuralWrapper.row1
 Kural.row2 = KuralWrapper.row2
