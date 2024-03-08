@@ -521,7 +521,7 @@ def tamil_calculator(request):
 
         mp3path = os.path.join("static", "calculator_audio_%d.mp3" % random.randint(0, 1000000))
         static_path = os.path.join(os.path.split(__file__)[0], mp3path)
-        tts = ConcatennativeTTS(as_tamil, static_path)
+        tts = ConcatennativeTTS(f"உங்கள் கேள்வியான, {value} இன் விடை, {as_tamil}", static_path)
         tts.run()
 
     return render(request,"opentamilapp/calculator.html",
