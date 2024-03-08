@@ -32,8 +32,18 @@ input[type=button], input[type=submit], input[type=reset] {
       <button type="button" class="btn btn-primary">
 	{{og_value}} = <span class="badge badge-success">{{tamil_result}}</span>
       </button>
-    </li>    
-    
+    </li>
+  {% if solution %}
+    <li>
+      <div>
+      <audio controls loop>
+        <source src="/{{solution}}" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <a href="/{{solution}}"> download MP3</a>.
+      </div>
+    </li>
+  {% endif %}
   </ul>
 </div>
 {% endif %}

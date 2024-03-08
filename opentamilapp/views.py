@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+import os
+
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
-from django.views.decorators.csrf import csrf_exempt
 
 from datetime import datetime
 import tamil
@@ -511,16 +512,24 @@ def tamil_calculator(request):
     n = 0
     as_tamil = ""
     value =  "ஓர் ஆயிரம் கழித்தல் ஐந்து பெருக்கல் ( ஒன்பது கூட்டல் ஒன்று )"
+    mp3path = None
     if request.method == 'POST':
         default = False
         value = request.POST.get("kanippaan-varigal")
         n = kanakkidu(value)
-        as_tamil = tamil.numeral.num2tamilstr_american(n) 
+        as_tamil = tamil.numeral.num2tamilstr_american(n)
+
+        mp3path = os.path.join("static", "calculator_audio_%d.mp3" % random.randint(0, 1000000))
+        static_path = os.path.join(os.path.split(__file__)[0], mp3path)
+        tts = ConcatennativeTTS(as_tamil, static_path)
+        tts.run()
+
     return render(request,"opentamilapp/calculator.html",
                   {"og_value":value,
                    "n":n,
                    "tamil_result":as_tamil,
                    "has_result":not default,
+                   "solution": mp3path,
                    })
 
 def tamil_adhikaram_detail(request,num):
