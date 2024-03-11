@@ -43,7 +43,8 @@ try:
     from tamiltts import ConcatennativeTTS
     from .classifier import process_word
 except Exception as ioe:
-    pass
+    print("process word function not imported because,", ioe)
+    process_word = lambda x: x
 
 from tamilinayavaani import SpellChecker, SpellCheckerResult
 from django.views.decorators.csrf import csrf_exempt
