@@ -553,7 +553,7 @@ def tamil_kural_detail(request,num):
     kural = kurals()[num-1]
     adi1, adi2 = kural.row1, kural.row2
 
-    venba_parsed: Venba = yappu_venba(adi1 +'\n' + adi2)
+    venba_parsed: Venba = yappu_venba(adi1.strip() +'\n' + adi2.strip())
     venba1 = ", ".join(map(str,venba_parsed.adi_list[0].seer_list))
     venba2 = ", ".join(map(str, venba_parsed.eetradi.seer_list))
 
