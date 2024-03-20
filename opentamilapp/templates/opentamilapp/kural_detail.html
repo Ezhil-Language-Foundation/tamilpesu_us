@@ -23,7 +23,7 @@
     குறள் உரை
     </button>
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#VenbaCommentary" aria-expanded="false" aria-controls="VenbaCommentary">
-    வெண்பா பகுப்பாய்வு
+    வெண்பா
     </button>
 
   </div>
@@ -47,11 +47,15 @@
     <h6>Parsing Venba (வெண்பா பகுப்பாய்வு):</h6>
     <h3>அடி</h3>
     <p>
-      {{venba1}}
+      <ol>
+        {{venba1|safe}}
+      </ol>
     </p>
     <h3>ஈற்றடி</h3>
     <p>
-      {{venba2}}
+      <ol>
+        {{venba2|safe}}
+      </ol>
     </p>
 </div>
 {% endblock %}
