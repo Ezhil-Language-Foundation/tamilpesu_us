@@ -52,6 +52,8 @@ from django.views.decorators.csrf import csrf_exempt
 from dateutil import parser as dateutil_parser
 from opentamilapp.kuralviews import get_adhikaram, kurals, get_pals, get_matching_kural
 
+from anicham import yappu_venba,EerasaiType,MoovasaiType,Venba,EetruSeerAsai
+
 def aspell_spell_check(request):
     return render(request,"opentamilapp/aspell_spell_check.html")
 
@@ -550,11 +552,18 @@ def tamil_kural_detail(request,num):
     assert num >= 1 and num <= 1330, "only 1330 kurals are known"
     kural = kurals()[num-1]
     adi1, adi2 = kural.row1, kural.row2
+
+    venba_parsed: Venba = yappu_venba(adi1 +'\n' + adi2)
+    venba1 = ", ".join(map(str,venba_parsed.adi_list[0].seer_list))
+    venba2 = ", ".join(map(str, venba_parsed.eetradi.seer_list))
+
     return render(request, "opentamilapp/kural_detail.html",
                   {
                       "kural":kural,
                       "kuralrow1":adi1,
                       "kuralrow2":adi2,
+                      "venba1":venba1,
+                      "venba2":venba2
                   })
 
 

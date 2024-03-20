@@ -22,6 +22,10 @@
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#EnglishCommentary" aria-expanded="false" aria-controls="EnglishCommentary">
     குறள் உரை
     </button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#VenbaCommentary" aria-expanded="false" aria-controls="VenbaCommentary">
+    வெண்பா பகுப்பாய்வு
+    </button>
+
   </div>
 </div>
 
@@ -36,6 +40,18 @@
     <h6>Commentary (உரை):</h6>
     <p>
       {{kural.commentary}}
+    </p>
+</div>
+
+<div class="collapse" id="VenbaCommentary">
+    <h6>Parsing Venba (வெண்பா பகுப்பாய்வு):</h6>
+    <h3>அடி</h3>
+    <p>
+      {{venba1}}
+    </p>
+    <h3>ஈற்றடி</h3>
+    <p>
+      {{venba2}}
     </p>
 </div>
 {% endblock %}

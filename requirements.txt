@@ -8,4 +8,4 @@ python-dateutil
 psycopg2-binary
 gensim==4.3.2
 scikit-learn==1.4.1.post1
-
+anicham>=0.0.6
