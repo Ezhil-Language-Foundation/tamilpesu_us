@@ -1,5 +1,5 @@
 # (C) 2024, Ezhil Language Foundation
-from kural import Kural
+from kural import Kural, Thirukkural
 from kuralgen import get_matching_kural
 from anicham import yappu_venba,EerasaiType,MoovasaiType,Venba,EetruSeerAsai,Seer
 from typing import List
@@ -68,7 +68,7 @@ def சீர்_பிரித்த_குறள்(எண்):
                 objs.append("-".join(to_letters(_val)))
         return list(filter(lambda x: x, objs))
 
-    குறள் = kural.Thirukkural().get_kural_no(எண்)
+    குறள் = Thirukkural().get_kural_no(எண்)
     பகுப்பாய்வு: Venba = yappu_venba(குறள்.ta)
     return (' '.join(to_seer(பகுப்பாய்வு.adi_list[0].seer_list)),
             ' '.join(to_seer(பகுப்பாய்வு.eetradi.seer_list)))
