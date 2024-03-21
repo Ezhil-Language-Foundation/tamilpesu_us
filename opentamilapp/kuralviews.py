@@ -67,11 +67,16 @@ def சீர்_பிரித்த_குறள்(எண்):
     def to_seer(seer_list: List[Seer]):
         objs = []
         for seer in seer_list:
+            if not seer: continue
             for key, _val in seer.__dict__.items():
                 objs.append("-".join(to_letters(_val)))
         return objs
 
     குறள் = Thirukkural().get_kural_no(எண்)
     பகுப்பாய்வு: Venba = yappu_venba(குறள்.ta)
-    return (' '.join(to_seer(பகுப்பாய்வு.adi_list[0].seer_list)),
-            ' '.join(to_seer(பகுப்பாய்வு.eetradi.seer_list)))
+    results = []
+    for adi in பகுப்பாய்வு.adi_list:
+        results.append( ' '.join(to_seer(adi.seer_list)) )
+    if பகுப்பாய்வு.eetradi:
+        results.append(' '.join(to_seer(பகுப்பாய்வு.eetradi.seer_list)))
+    return results
