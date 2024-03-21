@@ -1,7 +1,7 @@
 # (C) 2024, Ezhil Language Foundation
 from kural import Kural
 from kuralgen import get_matching_kural
-from anicham import yappu_venba,EerasaiType,MoovasaiType,Venba,EetruSeerAsai
+from anicham import yappu_venba,EerasaiType,MoovasaiType,Venba,EetruSeerAsai,Seer
 from typing import List
 from functools import lru_cache
 from tamil.utf8 import is_tamil_unicode, get_letters
