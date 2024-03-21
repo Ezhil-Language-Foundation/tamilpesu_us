@@ -50,6 +50,7 @@ from tamilinayavaani import SpellChecker, SpellCheckerResult
 from django.views.decorators.csrf import csrf_exempt
 
 from dateutil import parser as dateutil_parser
+from anicham import yappu_venba,EerasaiType,MoovasaiType,Venba,EetruSeerAsai,Seer
 from opentamilapp.kuralviews import get_adhikaram, kurals, get_pals, get_matching_kural, சீர்_பிரித்த_குறள்
 
 def aspell_spell_check(request):
