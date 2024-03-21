@@ -1,6 +1,7 @@
 # (C) 2024, Ezhil Language Foundation
 from kural import Kural
 from kuralgen import get_matching_kural
+from anicham import yappu_venba,EerasaiType,MoovasaiType,Venba,EetruSeerAsai
 from functools import lru_cache
 from tamil.utf8 import is_tamil_unicode, get_letters
 
@@ -48,3 +49,25 @@ def get_adhikaram():
     l2 = len(kurals())
     assert l1 == l2
     return d
+
+def சீர்_பிரித்த_குறள்(எண்):
+    def to_letters(அசை):
+        if not அசை: return []
+        result = []
+        for key, _val in அசை.__dict__.items():
+            if hasattr(_val, 'ezhutthu_list'):
+                result.append(''.join([x.letter for x in _val.ezhutthu_list]))
+        return result
+
+    def to_seer(seer_list: List[Seer]):
+        objs = []
+        for seer in seer_list:
+            if not seer: continue
+            for key, _val in seer.__dict__.items():
+                objs.append("-".join(to_letters(_val)))
+        return list(filter(lambda x: x, objs))
+
+    குறள் = kural.Thirukkural().get_kural_no(எண்)
+    பகுப்பாய்வு: Venba = yappu_venba(குறள்.ta)
+    return (' '.join(to_seer(பகுப்பாய்வு.adi_list[0].seer_list)),
+            ' '.join(to_seer(பகுப்பாய்வு.eetradi.seer_list)))
