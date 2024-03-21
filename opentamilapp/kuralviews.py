@@ -56,17 +56,20 @@ def சீர்_பிரித்த_குறள்(எண்):
         if not அசை: return []
         result = []
         for key, _val in அசை.__dict__.items():
+            __val = _val
             if hasattr(_val, 'ezhutthu_list'):
-                result.append(''.join([x.letter for x in _val.ezhutthu_list]))
+                __val = _val.ezhutthu_list
+            if isinstance(__val,list):
+                result.append(''.join([x.letter for x in __val]))
+
         return result
 
     def to_seer(seer_list: List[Seer]):
         objs = []
         for seer in seer_list:
-            if not seer: continue
             for key, _val in seer.__dict__.items():
                 objs.append("-".join(to_letters(_val)))
-        return list(filter(lambda x: x, objs))
+        return objs
 
     குறள் = Thirukkural().get_kural_no(எண்)
     பகுப்பாய்வு: Venba = yappu_venba(குறள்.ta)
