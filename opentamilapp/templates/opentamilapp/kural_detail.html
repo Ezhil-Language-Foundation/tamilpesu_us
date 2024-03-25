@@ -28,6 +28,9 @@
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#VenbaCommentary" aria-expanded="false" aria-controls="VenbaCommentary">
     வெண்பா
     </button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#KuralAudio" aria-expanded="false" aria-controls="KuralAudio">
+    ஒலித்துப்பார்
+    </button>
   </div>
 </div>
 
@@ -74,5 +77,11 @@
         <li>{{seeradi2}}</li>
       </ol>
     </p>
+</div>
+<div class="collapse" id="KuralAudio">
+    <audio controls loop>
+    <source src="/{{audiopath}}" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
 </div>
 {% endblock %}

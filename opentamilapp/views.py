@@ -557,6 +557,12 @@ def tamil_kural_detail(request,num):
     venba1 = "\n".join(map(as_li,venba_parsed.adi_list[0].seer_list))
     venba2 = "\n".join(map(as_li, venba_parsed.eetradi.seer_list))
 
+    mp3path = os.path.join("static", "audio_kural_%d.mp3" % random.randint(0, 1000000))
+    static_path = os.path.join(os.path.split(__file__)[0], mp3path)
+    words = seeradi1 +' '+ seeradi2
+    #words = kural.ta
+    tts = ConcatennativeTTS(words, static_path)
+    tts.run()
     return render(request, "opentamilapp/kural_detail.html",
                   {
                       "kural":kural,
@@ -565,7 +571,8 @@ def tamil_kural_detail(request,num):
                       "seeradi1":seeradi1,
                       "seeradi2":seeradi2,
                       "venba1":venba1,
-                      "venba2":venba2
+                      "venba2":venba2,
+                      "audiopath":mp3path,
                   })
 
 
