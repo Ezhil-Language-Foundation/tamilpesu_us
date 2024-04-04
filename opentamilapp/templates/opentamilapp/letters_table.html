@@ -54,6 +54,15 @@ function playback_audio(text) {
     document.getElementById('audio-player').appendChild(audio);
 }
 
+function attach_callback(btn) {
+		// Attach event listener to the button
+		btn.addEventListener('click', function() {
+                    // Callback function when button is clicked
+                    console.log('Button clicked: ' + this.textContent);
+		    clearChildren("audio-player");
+ 		    playback_audio(AudioMap[this.textContent]);		    
+		});
+}
 window.onload = function() {
     // Create a table element
     var AudioMap = {
@@ -438,6 +447,8 @@ window.onload = function() {
     "ளு", "ளூ", "ளெ", "ளே", "ளை", "ளொ", "ளோ", "ளௌ",
     ];
 
+  
+
     // Loop to create rows and columns
     for (var i = 0; i < 18+1; i++) {
         // Create a table row
@@ -452,23 +463,23 @@ window.onload = function() {
 	    if ( i == 0 && j == 0 ) {
 		cell.textContent = 'தமிழ்';
 	    } else if ( i == 0 && j > 0) {
-		cell.textContent = tamil_uyir[j-1];
-	    } else if ( j == 0 && i > 0 ) {
-		cell.textContent = tamil_mei[i-1];
-	    } else {
+		var btn = document.createElement('button');
+		btn.textContent = tamil_uyir[j-1];
+                attach_callback( btn );
+                cell.append(btn);
+ 	    } else if ( j == 0 && i > 0 ) {
+		var btn = document.createElement('button');
+                btn.textContent = tamil_mei[i-1];
+                attach_callback( btn );
+                cell.append(btn);
+           } else {
 		var btn = document.createElement('button');
 		
 		if ( j < 13 ) {
 		    btn.textContent = tamil_uyirmei[ (i-1)*12 + (j-1) ];
 		}
 
-		// Attach event listener to the button
-		btn.addEventListener('click', function() {
-                    // Callback function when button is clicked
-                    console.log('Button clicked: ' + this.textContent);
-		    clearChildren("audio-player");
- 		    playback_audio(AudioMap[this.textContent]);		    
-		});
+	        attach_callback( btn );
 		cell.appendChild(btn);		
 	    }
 	    
