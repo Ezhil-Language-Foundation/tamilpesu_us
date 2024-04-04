@@ -2,7 +2,10 @@ import random
 import sys
 from pathlib import Path
 
-from gensim.models import KeyedVectors
+try:
+    from gensim.models import KeyedVectors
+except _:
+    KeyedVectors = None
 
 BASEDIR = Path(__file__).parent
 
@@ -22,13 +25,14 @@ def realign_array(arr, fixed_length):
             aligned[i] = aligned[i - 1]
     return aligned
 
-english_embedding = KeyedVectors.load(str(BASEDIR / 'models/english_embedding.kvmodel'))
-kural_vocab_embedding = KeyedVectors.load(str(BASEDIR / 'models/kural_vocab_embedding.kvmodel'))
-
-english_embeddings_keys_to_index = english_embedding.key_to_index
-english_embedding_vector_values = english_embedding.vectors
 
 def get_matching_kural( input_sentence ):
+    english_embedding = KeyedVectors.load(str(BASEDIR / 'models/english_embedding.kvmodel'))
+    kural_vocab_embedding = KeyedVectors.load(str(BASEDIR / 'models/kural_vocab_embedding.kvmodel'))
+    
+    english_embeddings_keys_to_index = english_embedding.key_to_index
+    english_embedding_vector_values = english_embedding.vectors
+    
     sen = get_sentence_tokens_after_stopword_removal(input_sentence)
 
     generated = []
