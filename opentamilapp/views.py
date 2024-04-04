@@ -130,6 +130,9 @@ def index(request):
 def version(request):
     return render(request,"opentamilapp/version.html",{"VERSION":tamil.VERSION})
 
+def tamil_letters_table(request):
+    return render(request,"opentamilapp/letters_table.html")
+
 def vaypaadu(request):
     return render(request,"opentamilapp/vaypaadu.html")
 
@@ -559,7 +562,7 @@ def tamil_kural_detail(request,num):
 
     mp3path = os.path.join("static", "audio_kural_%d.mp3" % random.randint(0, 1000000))
     static_path = os.path.join(os.path.split(__file__)[0], mp3path)
-    words = seeradi1 +' '+ seeradi2
+    words = (seeradi1 +' '+ seeradi2).replace('-',' ')
     #words = kural.ta
     tts = ConcatennativeTTS(words, static_path)
     tts.run()

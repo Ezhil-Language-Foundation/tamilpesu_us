@@ -1,4 +1,4 @@
-"""opentamilweb URL Configuration
+"""opentamilweb URL ConfigurationAA
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.10/topics/http/urls/
@@ -69,4 +69,5 @@ urlpatterns = [
     path("kural/detail/<int:num>/", tamil_kural_detail, name="tamil_kural_detail"),
     path("kural/paal/detail/<int:num>/", tamil_paal_detail, name="tamil_paal_detail"),
     path("kural/adhikaram/detail/<int:num>/", tamil_adhikaram_detail, name="tamil_adhikaram_detail"),
+    path("letters/",tamil_letters_table,name="tamil_letters_table"),
 ]
