@@ -54,17 +54,6 @@ function playback_audio(text) {
     document.getElementById('audio-player').appendChild(audio);
 }
 
-function attach_callback(btn) {
-		// Attach event listener to the button
-		btn.addEventListener('click', function() {
-                    // Callback function when button is clicked
-                    console.log('Button clicked: ' + this.textContent);
-		    clearChildren("audio-player");
- 		    playback_audio(AudioMap[this.textContent]);		    
-		});
-}
-window.onload = function() {
-    // Create a table element
     var AudioMap = {
         ".": "stop",
         " ": "space1",
@@ -392,7 +381,19 @@ window.onload = function() {
         "ஹோ": "hoo",
         "ஹௌ": "hau",
         "ஹ்": "h",
-    };
+};
+
+function attach_callback(btn) {
+		// Attach event listener to the button
+		btn.addEventListener('click', function() {
+                    // Callback function when button is clicked
+                    console.log('Button clicked: ' + this.textContent);
+		    clearChildren("audio-player");
+ 		    playback_audio(AudioMap[this.textContent]);		    
+		});
+}
+window.onload = function() {
+    // Create a table element
     var table = document.createElement('table');
     var tamil_mei = [
     "க்",
