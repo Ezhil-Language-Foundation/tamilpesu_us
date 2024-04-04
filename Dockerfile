@@ -29,7 +29,7 @@ RUN apt-get install -y aspell aspell-ta
 
 # Copy the rest of the code.
 COPY . /app/
-COPY ./packages/tamiltts/tamilsound/ /app/opentamilapp/static/
+COPY ./packages/tamiltts/tamilsound/ /app/opentamilapp/static/tamilsound/
 
 # Prepare Staticfiles and Database
 ENV PYTHONPATH ${PYTHONPATH}:/app/packages/
