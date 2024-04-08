@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 import sys
+import functools
 from django.shortcuts import redirect
 from django.urls import path, re_path
 from .views import *
@@ -69,5 +70,7 @@ urlpatterns = [
     path("kural/detail/<int:num>/", tamil_kural_detail, name="tamil_kural_detail"),
     path("kural/paal/detail/<int:num>/", tamil_paal_detail, name="tamil_paal_detail"),
     path("kural/adhikaram/detail/<int:num>/", tamil_adhikaram_detail, name="tamil_adhikaram_detail"),
-    path("letters/",tamil_letters_table,name="tamil_letters_table"),
+    path("letters/uyir/", functools.partial(tamil_letters_table,kind='uyir'), name="tamil_letters_uyir"),
+    path("letters/mei/",functools.partial(tamil_letters_table,kind='mei'),name="tamil_letters_mei"),
+    path("letters/uyirmei/",functools.partial(tamil_letters_table,kind='uyirmei'),name="tamil_letters_uyirmei"),
 ]

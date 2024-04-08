@@ -26,6 +26,27 @@
 <div id="table-container"></div>
 <div id="audio-player"></div>
 <script type="text/javascript">
+
+function createSVG(text_content) {
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("width", "50");
+    svg.setAttribute("height", "50");
+    svg.setAttribute("viewBox", "0 0 50 50");
+
+    const text = document.createElementNS(svgNS, "text");
+    text.setAttribute("x", "10");
+    text.setAttribute("y", "25");
+    text.setAttribute("fill", "#ffffff");
+    text.setAttribute("font-size", "24");
+    text.setAttribute("font-family", "Arial");
+    text.textContent = text_content;
+
+    svg.appendChild(text);
+
+    return svg;
+}
+
 function clearChildren(tag_id) {
     var parentDiv = document.getElementById(tag_id);
     // Loop while there are child nodes to remove
@@ -384,13 +405,14 @@ function playback_audio(text) {
 };
 
 function attach_callback(btn) {
-		// Attach event listener to the button
-		btn.addEventListener('click', function() {
-                    // Callback function when button is clicked
-                    console.log('Button clicked: ' + this.textContent);
-		    clearChildren("audio-player");
- 		    playback_audio(AudioMap[this.textContent]);		    
-		});
+   // Attach event listener to the button
+   btn.addEventListener('click', function() {
+        // Callback function when button is clicked
+        console.log('Button clicked: ' + this.textContent);
+	    clearChildren("audio-player");
+ 	    playback_audio(AudioMap[this.textContent]);
+	    }
+	);
 }
 window.onload = function() {
     // Create a table element
@@ -451,39 +473,40 @@ window.onload = function() {
   
 
     // Loop to create rows and columns
-    for (var i = 0; i < 18+1; i++) {
+    for (var i = 0; i < {{mei}}+1; i++) {
         // Create a table row
         var row = document.createElement('tr');
         
         // Loop to create cells in each row
-        for (var j = 0; j < 1+12; j++) {
+        for (var j = 0; j < 1+{{uyir}}; j++) {
             // Create a table cell
             var cell = document.createElement('td');
 
             // Add content to the cell (optional)
-	    if ( i == 0 && j == 0 ) {
-		cell.textContent = 'தமிழ்';
-	    } else if ( i == 0 && j > 0) {
-		var btn = document.createElement('button');
-		btn.textContent = tamil_uyir[j-1];
-                attach_callback( btn );
-                cell.append(btn);
- 	    } else if ( j == 0 && i > 0 ) {
-		var btn = document.createElement('button');
-                btn.textContent = tamil_mei[i-1];
-                attach_callback( btn );
-                cell.append(btn);
-           } else {
-		var btn = document.createElement('button');
-		
-		if ( j < 13 ) {
-		    btn.textContent = tamil_uyirmei[ (i-1)*12 + (j-1) ];
-		}
+            if ( i == 0 && j == 0 ) {
+                    cell.textContent = 'தமிழ்';
+            } else if ( i == 0 && j > 0) {
+                    var btn = document.createElement('button');
+                    //btn.textContent = tamil_uyir[j-1];
+                    btn.append( createSVG( tamil_uyir[j-1] ) );
+                    attach_callback( btn );
+                    cell.append(btn);
+            } else if ( j == 0 && i > 0 ) {
+                    var btn = document.createElement('button');
+                    //btn.textContent = tamil_mei[i-1];
+                    btn.append( createSVG( tamil_mei[i-1] ) );
+                    attach_callback( btn );
+                    cell.append(btn);
+            } else {
+                    var btn = document.createElement('button');
+                    if ( j < 13 ) {
+                        //btn.textContent = tamil_uyirmei[ (i-1)*12 + (j-1) ];
+                        btn.append( createSVG( tamil_uyirmei[ (i-1)*12 + (j-1) ] ) );
+                    }
+                    attach_callback( btn );
+                    cell.appendChild(btn);
+            }
 
-	        attach_callback( btn );
-		cell.appendChild(btn);		
-	    }
-	    
             // Append cell to the row
             row.appendChild(cell);
         }

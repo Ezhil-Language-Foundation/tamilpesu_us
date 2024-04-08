@@ -130,8 +130,16 @@ def index(request):
 def version(request):
     return render(request,"opentamilapp/version.html",{"VERSION":tamil.VERSION})
 
-def tamil_letters_table(request):
-    return render(request,"opentamilapp/letters_table.html")
+def tamil_letters_table(request,kind='uyirmei'):
+    if kind == 'uyir':
+        context = {'uyir': 12, 'mei': 1}
+        return render(request, "opentamilapp/letters_table.html",context)
+    elif kind == 'mei':
+        context = {'uyir': 1, 'mei': 18}
+        return render(request, "opentamilapp/letters_table.html",context)
+    assert kind == 'uyirmei'
+    context = {'uyir': 12, 'mei': 18}
+    return render(request,"opentamilapp/letters_table.html",context)
 
 def vaypaadu(request):
     return render(request,"opentamilapp/vaypaadu.html")
