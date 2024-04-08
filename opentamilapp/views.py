@@ -132,10 +132,10 @@ def version(request):
 
 def tamil_letters_table(request,kind='uyirmei'):
     if kind == 'uyir':
-        context = {'uyir': 12, 'mei': 1}
+        context = {'uyir': 12, 'mei': 0}
         return render(request, "opentamilapp/letters_table.html",context)
     elif kind == 'mei':
-        context = {'uyir': 1, 'mei': 18}
+        context = {'uyir': 0, 'mei': 18}
         return render(request, "opentamilapp/letters_table.html",context)
     assert kind == 'uyirmei'
     context = {'uyir': 12, 'mei': 18}
