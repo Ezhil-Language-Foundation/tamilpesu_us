@@ -565,8 +565,9 @@ def tamil_kural_detail(request,num):
     seeradi1, seeradi2 = சீர்_பிரித்த_குறள்( num )
     venba_parsed: Venba = yappu_venba(kural.ta)
     as_li = lambda x: f'<li>{str(x)}</li>'
-    venba1 = "\n".join(map(as_li,venba_parsed.adi_list[0].seer_list))
-    venba2 = "\n".join(map(as_li, venba_parsed.eetradi.seer_list))
+    non_empty = lambda x: len(x.strip()) > 0
+    venba1 = "\n".join(map(as_li,filter(non_empty,venba_parsed.adi_list[0].seer_list)))
+    venba2 = "\n".join(map(as_li, filter(non_empty,venba_parsed.eetradi.seer_list)))
 
     mp3path = os.path.join("static", "audio_kural_%d.mp3" % random.randint(0, 1000000))
     static_path = os.path.join(os.path.split(__file__)[0], mp3path)
