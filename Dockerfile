@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:22.04
 
 # These two environment variables prevent __pycache__/ files.
 ENV PYTHONUNBUFFERED 1
