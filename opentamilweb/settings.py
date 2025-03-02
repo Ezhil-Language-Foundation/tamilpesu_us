@@ -20,19 +20,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = Env()
 env.read_env()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY',secrets.token_hex(48))
+SECRET_KEY = os.environ.get('SECRET_KEY', secrets.token_hex(48))
 APP_KEY = SECRET_KEY.upper()
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG',not False)
+DEBUG = os.environ.get('DJANGO_DEBUG', not False)
 
-ALLOWED_HOSTS = ["*",".tamilpesu.us"]
+ALLOWED_HOSTS = ["*", ".tamilpesu.us"]
 CSRF_TRUSTED_ORIGINS = ['https://tamilpesu.us',]
 CORS_REPLACE_HTTPS_REFERER = True
 
@@ -90,7 +89,7 @@ WSGI_APPLICATION = "opentamilweb.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DEPLOY=not True
+DEPLOY = not True
 
 if DEPLOY:
     DATABASES = {
@@ -104,7 +103,6 @@ else:
             'NAME': 'sqlite',
         }
     }
-    
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
@@ -143,15 +141,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = ["static"]
-STATIC_ROOT = BASE_DIR / "opentamilap"
+# STATICFILES_DIRS = ["static"]
+STATIC_ROOT = BASE_DIR / "opentamilapp"
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 TEXTRANDOMIZER_FILES = []
 # can be 'open-tamil.herokuapp.com' or 'tamilpesu.us' etc.
-#CURRDIR = os.path.dirname(os.path.abspath(__file__))
-APPDIR = BASE_DIR #os.path.dirname(CURRDIR)
+# CURRDIR = os.path.dirname(os.path.abspath(__file__))
+APPDIR = BASE_DIR  # os.path.dirname(CURRDIR)
 EXAMPLE_SITE_URL = "tamilpesu.us"
 CONTACT_EMAIL = "ezhillang@gmail.com"
-print(BASE_DIR)
-STATIC_ROOT = os.path.join(APPDIR,'opentamilapp','static')
+STATIC_ROOT = os.path.join(APPDIR, 'opentamilapp', 'static')
