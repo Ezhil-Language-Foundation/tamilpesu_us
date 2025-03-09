@@ -40,3 +40,16 @@ python manage.py compilemessages
 
 python manage.py runserver
 
+# Running Locally using Docker
+You need to have a Docker installed on local machine. Then you have to build the docker image for this repository using the commands:
+(note: replace "my-image-name" with your suitable name; its just meta-syntactic variables [மேல்தொடரியல் மாறி])
+```
+$ docker build -t my-image-name
+```
+
+```
+$ docker run -p 8080:5000 -it my-image-name
+```
+
+Then open your browser at localhost 8080 you should see,
+<img width="1303" alt="image" src="https://github.com/user-attachments/assets/09b9f2ae-534b-4208-ba71-7cf99aa20b5b" />
