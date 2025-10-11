@@ -32,15 +32,15 @@ APP_KEY = SECRET_KEY.upper()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG',not False)
 
-ALLOWED_HOSTS = ["*",".tamilpesu.us"]
-CSRF_TRUSTED_ORIGINS = ['https://tamilpesu.us',]
+ALLOWED_HOSTS = ["*",".tamilpesu.in"]
+CSRF_TRUSTED_ORIGINS = ['https://tamilpesu.in',]
 CORS_REPLACE_HTTPS_REFERER = True
 
-CSRF_COOKIE_DOMAIN = 'tamilpesu.us'
+CSRF_COOKIE_DOMAIN = 'tamilpesu.in'
 
 CORS_ORIGIN_WHITELIST = (
-    'https://tamilpesu.us/',
-    'tamilpesu.us'
+    'https://tamilpesu.in/',
+    'tamilpesu.in'
 )
 # Application definition
 
@@ -148,10 +148,10 @@ STATIC_ROOT = BASE_DIR / "opentamilap"
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 TEXTRANDOMIZER_FILES = []
-# can be 'open-tamil.herokuapp.com' or 'tamilpesu.us' etc.
+# can be 'open-tamil.herokuapp.com' or 'tamilpesu.in' etc.
 #CURRDIR = os.path.dirname(os.path.abspath(__file__))
 APPDIR = BASE_DIR #os.path.dirname(CURRDIR)
-EXAMPLE_SITE_URL = "tamilpesu.us"
+EXAMPLE_SITE_URL = "tamilpesu.in"
 CONTACT_EMAIL = "ezhillang@gmail.com"
 print(BASE_DIR)
 STATIC_ROOT = os.path.join(APPDIR,'opentamilapp','static')
