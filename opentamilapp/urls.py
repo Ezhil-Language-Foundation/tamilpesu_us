@@ -73,4 +73,5 @@ urlpatterns = [
     path("letters/uyir/", functools.partial(tamil_letters_table,kind='uyir'), name="tamil_letters_uyir"),
     path("letters/mei/",functools.partial(tamil_letters_table,kind='mei'),name="tamil_letters_mei"),
     path("letters/uyirmei/",functools.partial(tamil_letters_table,kind='uyirmei'),name="tamil_letters_uyirmei"),
+    path("tolkapy/simple/",tolkapy_simple,name="tolkay_simple")
 ]
